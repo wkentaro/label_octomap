@@ -1,6 +1,8 @@
 #!/usr/bin/env roseus
 ;; vim: set ft=lisp:
 
+(ros::load-ros-manifest "icra2017")
+
 (require "package://jsk_2016_01_baxter_apc/euslisp/jsk_2016_01_baxter_apc/baxter-interface.l")
 
 
@@ -18,6 +20,17 @@
     (send *ri* :gripper-servo-on)
     (objects (list *baxter*))
     (send *ri* :recognize-bin-boxes)
+    )
+  (ros::advertise (format nil "~a/output/viewpoints" (ros::get-name)) jsk_demo_common::EventHeader)
+  )
+
+
+(defun publish-viewpoint-landmark (&key seq)
+  (let ((msg (instance jsk_demo_common::EventHeader :init)))
+    (send msg :header :stamp (ros::time-now))
+    (send msg :header :seq seq)
+    (send msg :context (format nil "viewpoint_~a" seq))
+    (ros::publish (format nil "~a/output/viewpoints" (ros::get-name)) msg)
     )
   )
 
@@ -43,7 +56,7 @@
   (send *baxter* :head_pan :joint-angle 70)
   (send *ri* :ik->bin-entrance :rarm bin
         :gripper-angle 90
-        :offset (float-vector -150 0 -80))
+        :offset (float-vector -200 0 -80))
   (setq init-tc (send (send *baxter* :rarm :end-coords) :copy-worldcoords))
 
   ;; pi/6 rotation in y axis
@@ -55,6 +68,7 @@
         :rthre (/ pi 18)
         )
   (model2real)
+  (publish-viewpoint-landmark :seq 0)
   (request-and-stop-pointcloud)
   ;;
   (setq tc (send init-tc :copy-worldcoords))
@@ -64,6 +78,7 @@
         :rthre (/ pi 18)
         )
   (model2real)
+  (publish-viewpoint-landmark :seq 1)
   (request-and-stop-pointcloud)
   ;;
   (setq tc (send init-tc :copy-worldcoords))
@@ -74,6 +89,7 @@
         :rthre (/ pi 18)
         )
   (model2real)
+  (publish-viewpoint-landmark :seq 2)
   (request-and-stop-pointcloud)
 
   ;; pi/4 rotation in y axis
@@ -85,6 +101,7 @@
         :rthre (/ pi 18)
         )
   (model2real)
+  (publish-viewpoint-landmark :seq 3)
   (request-and-stop-pointcloud)
   ;;
   (setq tc (send init-tc :copy-worldcoords))
@@ -94,6 +111,7 @@
         :rthre (/ pi 18)
         )
   (model2real)
+  (publish-viewpoint-landmark :seq 4)
   (request-and-stop-pointcloud)
   ;;
   (setq tc (send init-tc :copy-worldcoords))
@@ -104,6 +122,7 @@
         :rthre (/ pi 18)
         )
   (model2real)
+  (publish-viewpoint-landmark :seq 5)
   (request-and-stop-pointcloud)
   )
 
