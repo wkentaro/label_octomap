@@ -32,6 +32,8 @@
     </rosparam>
   </node>
 
+  <!-- TODO(wkentaro): Implement node to evaluate the segmentation -->
+
   <!-- visualization -->
 
   <group if="$(arg rviz)">
