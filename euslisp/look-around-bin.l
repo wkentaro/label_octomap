@@ -10,7 +10,7 @@
   (unless (boundp '*ri*)
     (jsk_2016_01_baxter_apc::baxter-init)
     (send *ri* :gripper-servo-on)
-    (objects (list *baxter*))
+    ; (objects (list *baxter*))
     (send *ri* :recognize-bin-boxes)
     )
   (ros::advertise (format nil "~a/output/moved" (ros::get-name)) std_msgs::Empty)
