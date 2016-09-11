@@ -35,7 +35,7 @@
         output="screen">
     <remap from="~server" to="transformable_interactive_server" />
     <rosparam subst_value="true">
-      config_file: $(find icra2017)/config/$(arg label_value)_look_around_bin.yaml
+      config_file: $(find icra2017)/config/$(arg label_value).yaml
       config_auto_save: true
     </rosparam>
   </node>
