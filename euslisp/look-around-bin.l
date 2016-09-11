@@ -6,14 +6,6 @@
 (require "package://jsk_2016_01_baxter_apc/euslisp/jsk_2016_01_baxter_apc/baxter-interface.l")
 
 
-(defun model2real (&key (tm 3000) (wait? t))
-  (send *ri* :angle-vector (send *baxter* :angle-vector) tm)
-  (when wait?
-    (send *ri* :wait-interpolation)
-    )
-  )
-
-
 (defun setup ()
   (unless (boundp '*ri*)
     (jsk_2016_01_baxter_apc::baxter-init)
@@ -21,6 +13,23 @@
     (objects (list *baxter*))
     (send *ri* :recognize-bin-boxes)
     )
+  (ros::advertise (format nil "~a/output/moved" (ros::get-name)) std_msgs::Empty)
+  )
+
+
+(defun publish-moved ()
+  (ros::publish
+    (format nil "~a/output/moved" (ros::get-name))
+    (instance std_msgs::Empty :init))
+  )
+
+
+(defun model2real (&key (tm 3000) (wait? t))
+  (send *ri* :angle-vector (send *baxter* :angle-vector) tm)
+  (when wait?
+    (send *ri* :wait-interpolation)
+    )
+  (publish-moved)
   )
 
 
@@ -30,7 +39,8 @@
   (ros::service-call
     (format nil "/passthrough_viewpoint_~a/request" id)
     (instance std_srvs::EmptyRequest :init))
-  (unix:usleep (* 1000 1000))
+  ; (unix:usleep (* 1000 1000))
+  (unix:sleep 3)
   (ros::service-call "/passthrough_cloud/stop" (instance std_srvs::EmptyRequest :init))
   (ros::service-call
     (format nil "/passthrough_viewpoint_~a/stop" id)
@@ -87,6 +97,9 @@
   ;; untuck-pose
   (send *baxter* :untuck-pose :rarm)
   (model2real)
+
+  ;; sleep for octomap topic to save with rosbag
+  (unix::sleep 3)
   )
 
 
