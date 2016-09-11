@@ -418,14 +418,14 @@ Visualization Manager:
     - Background Alpha: 0.8
       Background Color: 0; 0; 0
       Class: jsk_rviz_plugin/OverlayText
-      Enabled: false
+      Enabled: true
       Foreground Alpha: 0.8
       Foreground Color: 25; 255; 240
       Name: LabelNames
       Overtake Color Properties: true
       Overtake Position Properties: true
       Topic: /label_names_overlay/output
-      Value: false
+      Value: true
       font: DejaVu Sans Mono
       height: 770
       left: 0
@@ -476,15 +476,15 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.348081
-        Y: -0.206818
-        Z: 0.267609
+        X: 0.7112
+        Y: -0.038506
+        Z: 0.30664
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.375398
+      Pitch: 0.360398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.2654
+      Yaw: 1.9854
     Saved: ~
 Window Geometry:
   Displays:

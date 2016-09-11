@@ -15,7 +15,9 @@
           pkg="rosbag" type="record"
           args="/tf
                 /robot/joint_states
+                /look_around_bin_main/output/moved
 
+                /label_image_decomposer/output/label_viz
                 /right_hand_camera/rgb/camera_info /right_hand_camera/rgb/image_raw
                 /right_hand_camera/depth_registered/camera_info /right_hand_camera/depth_registered/image_raw
 
@@ -24,7 +26,7 @@
                 /octomap_server_viewpoint_1/output/marker_array/occupied
                 /octomap_server_viewpoint_2/output/marker_array/occupied
 
-                -o $(optenv HOME)/.ros/icra2017/look_around_bin_$(arg target_label)
+                -o $(optenv HOME)/.ros/icra2017/$(arg target_label)_look_around_bin
           ">
     </node>
   </group>
@@ -69,8 +71,8 @@
     <remap from="~output/image" to="fcn_object_segmentation/output/proba_image/half" />
     <rosparam>
       use_camera_info: false
-      resize_scale_x: 0.5
-      resize_scale_y: 0.5
+      resize_scale_x: 0.25
+      resize_scale_y: 0.25
       interpolation: NEAREST
     </rosparam>
   </node>
@@ -80,8 +82,8 @@
     <remap from="~input" to="passthrough_cloud/output" />
     <remap from="~output" to="passthrough_cloud/output/half" />
     <rosparam>
-      step_x: 2
-      step_y: 2
+      step_x: 4
+      step_y: 4
     </rosparam>
   </node>
   <node name="label_octomap_server"
@@ -148,7 +150,7 @@
   </node>
   <node name="octomap_server_viewpoint_0"
         pkg="octomap_server" type="octomap_server_node">
-    <remap from="cloud_in" to="pasthrough_viewpoint_0/output" />
+    <remap from="cloud_in" to="passthrough_viewpoint_0/output" />
     <remap from="occupied_cells_vis_array" to="~output/marker_array/occupied" />
     <rosparam>
       frame_id: base
@@ -164,7 +166,7 @@
   </node>
   <node name="octomap_server_viewpoint_1"
         pkg="octomap_server" type="octomap_server_node">
-    <remap from="cloud_in" to="pasthrough_viewpoint_0/output" />
+    <remap from="cloud_in" to="passthrough_viewpoint_1/output" />
     <remap from="occupied_cells_vis_array" to="~output/marker_array/occupied" />
     <rosparam>
       frame_id: base
@@ -180,7 +182,7 @@
   </node>
   <node name="octomap_server_viewpoint_2"
         pkg="octomap_server" type="octomap_server_node">
-    <remap from="cloud_in" to="pasthrough_viewpoint_0/output" />
+    <remap from="cloud_in" to="passthrough_viewpoint_2/output" />
     <remap from="occupied_cells_vis_array" to="~output/marker_array/occupied" />
     <rosparam>
       frame_id: base
