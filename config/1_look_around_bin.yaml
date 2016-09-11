@@ -1,0 +1,6 @@
+boxes:
+- dimensions: [0.19, 0.15, 0.07]
+  frame_id: base
+  name: object_1
+  orientation: [0.0, 0.0, 0.0, 1.0]
+  position: [1.1101733446121216, -0.32918038964271545, 0.5103340148925781]

@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /OccupiedTarget1
       Splitter Ratio: 0.5
     Tree Height: 809
   - Class: rviz/Selection
@@ -378,13 +379,13 @@ Visualization Manager:
       Update Topic: /simple_marker/update
       Value: false
     - Class: rviz/MarkerArray
-      Enabled: true
+      Enabled: false
       Marker Topic: /label_octomap_server/output/marker_array/occupied_fg
       Name: OccupiedFG
       Namespaces:
-        map: true
+        {}
       Queue Size: 100
-      Value: true
+      Value: false
     - Class: rviz/MarkerArray
       Enabled: false
       Marker Topic: /label_octomap_server/output/marker_array/occupied_bg
@@ -444,6 +445,14 @@ Visualization Manager:
       left: 1023
       top: 19
       width: 500
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /label_octomap_server/output/marker_array/occupied_target
+      Name: OccupiedTarget
+      Namespaces:
+        map: true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -476,15 +485,15 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.348081
-        Y: -0.206818
-        Z: 0.267609
+        X: 0.420811
+        Y: -0.29167
+        Z: 0.384113
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.410398
+      Pitch: 0.270398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.6354
+      Yaw: 0.7504
     Saved: ~
 Window Geometry:
   Displays:
