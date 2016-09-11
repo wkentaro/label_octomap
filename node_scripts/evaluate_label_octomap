@@ -67,17 +67,13 @@ class EvaluateLabelOctomap(object):
         self.marker_msg[octomap_label] = marker_array_msg
 
     def wait_for_message(self):
-        # wait for message
-        rospy.logwarn('Waiting for octomap marker_array messages.')
-        while len(self.marker_msg.keys()) < 4:
-            rospy.sleep(0.1)
         # wait for robot motion
         rospy.logwarn('Waiting for robot motion ends.')
         while self.moved_count < 5:
             rospy.sleep(0.1)
         # wait for processing
         rospy.logwarn('Waiting for processing ends.')
-        time.sleep(5)
+        time.sleep(10)
 
     def evaluate_voxel_bbox_iu(self, marker_array, bbox):
         bbox_volume = bbox.dimensions.x * bbox.dimensions.y * bbox.dimensions.z
@@ -116,28 +112,40 @@ class EvaluateLabelOctomap(object):
         result = {}
 
         # viewpoint_0
-        marker_array = self.marker_msg['viewpoint_0']
-        bbox = self.bbox
-        iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
-        result['viewpoint_0'] = iu
+        if 'viewpoint_0' in self.marker_msg:
+            marker_array = self.marker_msg['viewpoint_0']
+            bbox = self.bbox
+            iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
+            result['viewpoint_0'] = iu
+        else:
+            result['viewpoint_0'] = 0
 
         # viewpoint_1
-        marker_array = self.marker_msg['viewpoint_1']
-        bbox = self.bbox
-        iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
-        result['viewpoint_1'] = iu
+        if 'viewpoint_1' in self.marker_msg:
+            marker_array = self.marker_msg['viewpoint_1']
+            bbox = self.bbox
+            iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
+            result['viewpoint_1'] = iu
+        else:
+            result['viewpoint_1'] = 0
 
         # viewpoint_2
-        marker_array = self.marker_msg['viewpoint_2']
-        bbox = self.bbox
-        iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
-        result['viewpoint_2'] = iu
+        if 'viewpoint_2' in self.marker_msg:
+            marker_array = self.marker_msg['viewpoint_2']
+            bbox = self.bbox
+            iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
+            result['viewpoint_2'] = iu
+        else:
+            result['viewpoint_2'] = 0
 
         # label_octomap
-        marker_array = self.marker_msg['label_octomap']
-        bbox = self.bbox
-        iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
-        result['label_octomap'] = iu
+        if 'label_octomap' in self.marker_msg:
+            marker_array = self.marker_msg['label_octomap']
+            bbox = self.bbox
+            iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
+            result['label_octomap'] = iu
+        else:
+            result['label_octomap'] = 0
 
         rp = rospkg.RosPack()
         result_file = os.path.join(
