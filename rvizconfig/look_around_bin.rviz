@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /OccupiedTarget1
       Splitter Ratio: 0.5
     Tree Height: 809
   - Class: rviz/Selection
@@ -27,7 +26,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Passthrough
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -447,10 +446,10 @@ Visualization Manager:
       width: 500
     - Class: rviz/MarkerArray
       Enabled: true
-      Marker Topic: /label_octomap_server/output/marker_array/occupied_target
+      Marker Topic: /label_octomap_server_target/output/marker_array/occupied_target
       Name: OccupiedTarget
       Namespaces:
-        map: true
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
