@@ -87,7 +87,7 @@ class EvaluateLabelOctomap(object):
             rospy.sleep(0.1)
         # wait for processing
         rospy.logwarn('Waiting for processing ends.')
-        time.sleep(10)
+        time.sleep(5)
 
     def evaluate_voxel_bbox_iu(self, marker_array, bbox):
         bbox_volume = bbox.dimensions.x * bbox.dimensions.y * bbox.dimensions.z

@@ -229,7 +229,7 @@ Visualization Manager:
       Marker Topic: /label_octomap_server_target/output/marker_array/occupied_target
       Name: OccupiedTarget
       Namespaces:
-        map: true
+        {}
       Queue Size: 100
       Value: true
     - Class: jsk_rviz_plugin/BoundingBoxArray
@@ -269,22 +269,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.689
+      Distance: 1.66017
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.12207
-        Y: -0.34578
-        Z: 0.54772
+        X: 1.31544
+        Y: -0.385898
+        Z: 0.498847
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.254796
+      Pitch: 0.584796
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.70708
+      Yaw: 3.96708
     Saved: ~
 Window Geometry:
   Displays:
