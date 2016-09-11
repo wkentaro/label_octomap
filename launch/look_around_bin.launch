@@ -1,5 +1,6 @@
 <launch>
 
+  <arg name="target_label" />
   <arg name="launch_main" default="true" />
   <arg name="rviz" default="true" />
 
@@ -14,21 +15,16 @@
           pkg="rosbag" type="record"
           args="/tf
                 /robot/joint_states
+
                 /right_hand_camera/rgb/camera_info /right_hand_camera/rgb/image_raw
                 /right_hand_camera/depth_registered/camera_info /right_hand_camera/depth_registered/image_raw
 
-                /look_around_bin_main/output/viewpoints
-                /passthrough_cloud/output
-                /label_octomap_server/output/points
-
-                /fcn_object_segmentation/output /fcn_object_segmentation/output/proba_image
-                /label_octomap_server/output/cluster_indices /label_to_cluster_indices/output
-
                 /label_octomap_server/output/marker_array/occupied_fg
-                /label_octomap_server/output/marker_array/occupied_bg
-                /label_image_decomposer/output/label_viz
+                /octomap_server_viewpoint_0/output/marker_array/occupied
+                /octomap_server_viewpoint_1/output/marker_array/occupied
+                /octomap_server_viewpoint_2/output/marker_array/occupied
 
-                -o $(optenv HOME)/.ros/icra2017/look_around_bin
+                -o $(optenv HOME)/.ros/icra2017/look_around_bin_$(arg target_label)
           ">
     </node>
   </group>
@@ -107,16 +103,6 @@
       max_range: 1.0
     </rosparam>
   </node>
-  <node name="cluster_indices_decomposer_octomap"
-        pkg="nodelet" type="nodelet"
-        args="load jsk_pcl/ClusterPointIndicesDecomposer $(arg MANAGER)">
-    <remap from="~input" to="label_octomap_server/output/points" />
-    <remap from="~target" to="label_octomap_server/output/cluster_indices" />
-    <rosparam>
-      approximate_sync: false
-      queue_size: 100
-    </rosparam>
-  </node>
 
   <!-- pipeline for benchmark -->
 
@@ -135,14 +121,72 @@
         args="load jsk_pcl_utils/LabelToClusterPointIndices $(arg MANAGER)">
     <remap from="~input" to="fcn_object_segmentation/output" />
   </node>
-  <node name="cluster_indices_decomposer_registration"
+
+  <node name="cluster_indices_to_indices"
         pkg="nodelet" type="nodelet"
-        args="load jsk_pcl/ClusterPointIndicesDecomposer $(arg MANAGER)">
+        args="load jsk_pcl_utils/ClusterPointIndicesToPointIndices $(arg MANAGER)">
+    <remap from="~input" to="label_to_cluster_indices/output" />
+    <rosparam subst_value="true">
+      index: $(arg target_label)
+    </rosparam>
+  </node>
+  <node name="extract_indices"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
     <remap from="~input" to="$(arg INPUT_CLOUD)" />
-    <remap from="~target" to="label_to_cluster_indices/output" />
+    <remap from="~indices" to="cluster_indices_to_indices/output" />
     <rosparam>
       approximate_sync: true
-      queue_size: 500
+      queue_size: 100
+      keep_organized: false
+    </rosparam>
+  </node>
+  <node name="passthrough_viewpoint_0"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_topic_tools/Passthrough $(arg MANAGER)">
+    <remap from="~input" to="extract_indices/output" />
+  </node>
+  <node name="octomap_server_viewpoint_0"
+        pkg="octomap_server" type="octomap_server_node">
+    <remap from="cloud_in" to="pasthrough_viewpoint_0/output" />
+    <remap from="occupied_cells_vis_array" to="~output/marker_array/occupied" />
+    <rosparam>
+      frame_id: base
+      resolution: 0.01
+      latch: false
+      max_range: 1.0
+    </rosparam>
+  </node>
+  <node name="passthrough_viewpoint_1"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_topic_tools/Passthrough $(arg MANAGER)">
+    <remap from="~input" to="extract_indices/output" />
+  </node>
+  <node name="octomap_server_viewpoint_1"
+        pkg="octomap_server" type="octomap_server_node">
+    <remap from="cloud_in" to="pasthrough_viewpoint_0/output" />
+    <remap from="occupied_cells_vis_array" to="~output/marker_array/occupied" />
+    <rosparam>
+      frame_id: base
+      resolution: 0.01
+      latch: false
+      max_range: 1.0
+    </rosparam>
+  </node>
+  <node name="passthrough_viewpoint_2"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_topic_tools/Passthrough $(arg MANAGER)">
+    <remap from="~input" to="extract_indices/output" />
+  </node>
+  <node name="octomap_server_viewpoint_2"
+        pkg="octomap_server" type="octomap_server_node">
+    <remap from="cloud_in" to="pasthrough_viewpoint_0/output" />
+    <remap from="occupied_cells_vis_array" to="~output/marker_array/occupied" />
+    <rosparam>
+      frame_id: base
+      resolution: 0.01
+      latch: false
+      max_range: 1.0
     </rosparam>
   </node>
 
