@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="target_label" />
+  <arg name="label_value" />
   <arg name="launch_main" default="true" />
   <arg name="rviz" default="true" />
 
@@ -28,7 +28,7 @@
                 /octomap_server_viewpoint_1/output/marker_array/occupied
                 /octomap_server_viewpoint_2/output/marker_array/occupied
 
-                -O $(optenv HOME)/.ros/icra2017/$(arg target_label)_look_around_bin.bag
+                -O $(optenv HOME)/.ros/icra2017/$(arg label_value)_look_around_bin.bag
           ">
     </node>
   </group>
@@ -118,7 +118,7 @@
     <remap from="marker_array/occupied_bg" to="~output/marker_array/occupied_target" />
     <remap from="marker_array/free" to="~output/marker_array/free" />
     <rosparam subst_value="true">
-      bg_label: $(arg target_label)
+      bg_label: $(arg label_value)
       n_label: 40
       frame_id: base
       resolution: 0.01
@@ -145,7 +145,7 @@
         args="load jsk_perception/LabelToMaskImage $(arg MANAGER)">
     <remap from="~input" to="fcn_object_segmentation/output" />
     <rosparam subst_value="true">
-      label_value: $(arg target_label)
+      label_value: $(arg label_value)
     </rosparam>
   </node>
   <node name="mask_image_to_indices"
