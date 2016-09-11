@@ -76,7 +76,7 @@
   (setq tc (send init-tc :copy-worldcoords))
   (send tc :rotate (/ pi 4) :y :world)
   (send tc :rotate (/ pi 12) :z :world)
-  (send tc :translate (float-vector 30 -100 0) :world)
+  (send tc :translate (float-vector 30 -100 50) :world)
   (send *baxter* :rarm :inverse-kinematics tc
         :rthre (/ pi 18)
         )
