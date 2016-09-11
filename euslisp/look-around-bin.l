@@ -54,25 +54,7 @@
   (setq init-tc (send (send *baxter* :rarm :end-coords) :copy-worldcoords))
 
   ;; pi/4 rotation in y axis
-  (setq tc (send init-tc :copy-worldcoords))
-  (send tc :rotate (/ pi 4) :y :world)
-  (send tc :rotate (- (/ pi 12)) :z :world)
-  (send tc :translate (float-vector 30 100 50) :world)
-  (send *baxter* :rarm :inverse-kinematics tc
-        :rthre (/ pi 18)
-        )
-  (model2real)
-  (request-and-stop-pointcloud :id 0)
-  ;;
-  (setq tc (send init-tc :copy-worldcoords))
-  (send tc :rotate (/ pi 4) :y :world)
-  (send tc :translate (float-vector 30 0 50) :world)
-  (send *baxter* :rarm :inverse-kinematics tc
-        :rthre (/ pi 18)
-        )
-  (model2real)
-  (request-and-stop-pointcloud :id 1)
-  ;;
+  ;; right
   (setq tc (send init-tc :copy-worldcoords))
   (send tc :rotate (/ pi 4) :y :world)
   (send tc :rotate (/ pi 12) :z :world)
@@ -81,7 +63,30 @@
         :rthre (/ pi 18)
         )
   (model2real)
+  (request-and-stop-pointcloud :id 0)
+  ;; center
+  (setq tc (send init-tc :copy-worldcoords))
+  (send tc :rotate (/ pi 4) :y :world)
+  (send tc :translate (float-vector 30 0 50) :world)
+  (send *baxter* :rarm :inverse-kinematics tc
+        :rthre (/ pi 18)
+        )
+  (model2real)
+  (request-and-stop-pointcloud :id 1)
+  ;; left
+  (setq tc (send init-tc :copy-worldcoords))
+  (send tc :rotate (/ pi 4) :y :world)
+  (send tc :rotate (- (/ pi 12)) :z :world)
+  (send tc :translate (float-vector 30 100 50) :world)
+  (send *baxter* :rarm :inverse-kinematics tc
+        :rthre (/ pi 18)
+        )
+  (model2real)
   (request-and-stop-pointcloud :id 2)
+
+  ;; untuck-pose
+  (send *baxter* :untuck-pose :rarm)
+  (model2real)
   )
 
 
