@@ -11,7 +11,7 @@
   <param name="use_sim_time" value="true" />
   <node name="rosbag_play"
         pkg="rosbag" type="play"
-        args="$(optenv HOME)/.ros/icra2017/$(arg label_value)_look_around_bin.bag --clock"
+        args="$(optenv HOME)/.ros/icra2017/$(arg label_value)_look_around_bin.bag --clock --start 25"
         launch-prefix="xterm -e">
   </node>
 

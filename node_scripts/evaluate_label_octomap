@@ -153,6 +153,9 @@ class EvaluateLabelOctomap(object):
             'eval_result/{}.yaml'.format(self.label_value))
         with open(result_file, 'w') as f:
             yaml.dump(result, f, default_flow_style=False)
+        print('*' * 30)
+        print(open(result_file).read(), end='')
+        print('*' * 30)
 
 
 if __name__ == '__main__':
