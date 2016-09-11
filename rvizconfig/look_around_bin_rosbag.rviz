@@ -468,6 +468,14 @@ Visualization Manager:
         {}
       Queue Size: 100
       Value: false
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /label_octomap_server_target/output/marker_array/occupied_target
+      Name: OccupiedTarget
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -493,22 +501,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.84505
+      Distance: 1.33748
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.44059
-        Y: -0.154514
-        Z: 0.411778
+        X: 1.42183
+        Y: -0.362739
+        Z: 0.398276
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.349798
+      Pitch: 0.249797
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.80348
+      Yaw: 3.39348
     Saved: ~
 Window Geometry:
   Displays:
