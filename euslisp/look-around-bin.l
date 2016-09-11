@@ -21,17 +21,6 @@
     (objects (list *baxter*))
     (send *ri* :recognize-bin-boxes)
     )
-  (ros::advertise (format nil "~a/output/viewpoints" (ros::get-name)) jsk_demo_common::EventHeader)
-  )
-
-
-(defun publish-viewpoint-landmark (&key seq)
-  (let ((msg (instance jsk_demo_common::EventHeader :init)))
-    (send msg :header :stamp (ros::time-now))
-    (send msg :header :seq seq)
-    (send msg :context (format nil "viewpoint_~a" seq))
-    (ros::publish (format nil "~a/output/viewpoints" (ros::get-name)) msg)
-    )
   )
 
 
@@ -59,39 +48,6 @@
         :offset (float-vector -200 0 -80))
   (setq init-tc (send (send *baxter* :rarm :end-coords) :copy-worldcoords))
 
-  ;; pi/6 rotation in y axis
-  (setq tc (send init-tc :copy-worldcoords))
-  (send tc :rotate (/ pi 6) :y :world)
-  (send tc :rotate (/ pi 12) :z :world)
-  (send tc :translate (float-vector 0 -100 0) :world)
-  (send *baxter* :rarm :inverse-kinematics tc
-        :rthre (/ pi 18)
-        )
-  (model2real)
-  (publish-viewpoint-landmark :seq 0)
-  (request-and-stop-pointcloud)
-  ;;
-  (setq tc (send init-tc :copy-worldcoords))
-  (send tc :rotate (/ pi 6) :y :world)
-  (send tc :translate (float-vector 0 0 0) :world)
-  (send *baxter* :rarm :inverse-kinematics tc
-        :rthre (/ pi 18)
-        )
-  (model2real)
-  (publish-viewpoint-landmark :seq 1)
-  (request-and-stop-pointcloud)
-  ;;
-  (setq tc (send init-tc :copy-worldcoords))
-  (send tc :rotate (/ pi 6) :y :world)
-  (send tc :rotate (- (/ pi 12)) :z :world)
-  (send tc :translate (float-vector 0 100 0) :world)
-  (send *baxter* :rarm :inverse-kinematics tc
-        :rthre (/ pi 18)
-        )
-  (model2real)
-  (publish-viewpoint-landmark :seq 2)
-  (request-and-stop-pointcloud)
-
   ;; pi/4 rotation in y axis
   (setq tc (send init-tc :copy-worldcoords))
   (send tc :rotate (/ pi 4) :y :world)
@@ -101,7 +57,6 @@
         :rthre (/ pi 18)
         )
   (model2real)
-  (publish-viewpoint-landmark :seq 3)
   (request-and-stop-pointcloud)
   ;;
   (setq tc (send init-tc :copy-worldcoords))
@@ -111,7 +66,6 @@
         :rthre (/ pi 18)
         )
   (model2real)
-  (publish-viewpoint-landmark :seq 4)
   (request-and-stop-pointcloud)
   ;;
   (setq tc (send init-tc :copy-worldcoords))
@@ -122,7 +76,6 @@
         :rthre (/ pi 18)
         )
   (model2real)
-  (publish-viewpoint-landmark :seq 5)
   (request-and-stop-pointcloud)
   )
 
