@@ -51,6 +51,7 @@
       gpu: 0
       model_name: fcn32s
       model_h5: $(find jsk_apc2016_common)/trained_data/fcn32s_6000.chainermodel
+      proba_threshold: 0.5
     </rosparam>
     <remap from="~target_names" to="label_names" />
   </node>
