@@ -1,0 +1,153 @@
+#!/usr/bin/env python
+
+from __future__ import division
+from __future__ import print_function
+
+import os
+import time
+
+import yaml
+
+from jsk_recognition_msgs.msg import BoundingBoxArray
+import rospkg
+import rospy
+from std_msgs.msg import Empty
+from visualization_msgs.msg import MarkerArray
+
+
+class EvaluateLabelOctomap(object):
+
+    def __init__(self):
+        self.label_value = rospy.get_param('~label_value')
+        self.moved_count = 0
+        self.marker_msg = {}
+        self.subscribe()
+
+    def subscribe(self):
+        self.sub_annotation = rospy.Subscriber(
+            '/transformable_boxes/output/boxes',
+            BoundingBoxArray,
+            self.cb_bboxes)
+
+        self.sub_moved = rospy.Subscriber(
+            '/look_around_bin_main/output/moved',
+            Empty,
+            self.cb_moved)
+
+        # bg label is used as the target label
+        self.sub_label_octomap = rospy.Subscriber(
+            '/label_octomap_server_target/output/marker_array/occupied_target',
+            MarkerArray,
+            self.cb_marker_array,
+            callback_args='label_octomap')
+        self.sub_view_0 = rospy.Subscriber(
+            '/octomap_server_viewpoint_0/output/marker_array/occupied',
+            MarkerArray,
+            self.cb_marker_array,
+            callback_args='viewpoint_0')
+        self.sub_view_1 = rospy.Subscriber(
+            '/octomap_server_viewpoint_1/output/marker_array/occupied',
+            MarkerArray,
+            self.cb_marker_array,
+            callback_args='viewpoint_1')
+        self.sub_view_2 = rospy.Subscriber(
+            '/octomap_server_viewpoint_2/output/marker_array/occupied',
+            MarkerArray,
+            self.cb_marker_array,
+            callback_args='viewpoint_2')
+
+    def cb_bboxes(self, bbox_array_msg):
+        assert len(bbox_array_msg.boxes) == 1
+        self.bbox = bbox_array_msg.boxes[0]
+
+    def cb_moved(self, empty_msg):
+        self.moved_count += 1
+
+    def cb_marker_array(self, marker_array_msg, octomap_label):
+        self.marker_msg[octomap_label] = marker_array_msg
+
+    def wait_for_message(self):
+        # wait for message
+        rospy.logwarn('Waiting for octomap marker_array messages.')
+        while len(self.marker_msg.keys()) < 4:
+            rospy.sleep(0.1)
+        # wait for robot motion
+        rospy.logwarn('Waiting for robot motion ends.')
+        while self.moved_count < 5:
+            rospy.sleep(0.1)
+        # wait for processing
+        rospy.logwarn('Waiting for processing ends.')
+        time.sleep(5)
+
+    def evaluate_voxel_bbox_iu(self, marker_array, bbox):
+        bbox_volume = bbox.dimensions.x * bbox.dimensions.y * bbox.dimensions.z
+        bbox_center = bbox.pose.position
+        bbox_min_pt = (
+            bbox_center.x - bbox.dimensions.x / 2,
+            bbox_center.y - bbox.dimensions.y / 2,
+            bbox_center.z - bbox.dimensions.z / 2,
+        )
+        bbox_max_pt = (
+            bbox_center.x + bbox.dimensions.x / 2,
+            bbox_center.y + bbox.dimensions.y / 2,
+            bbox_center.z + bbox.dimensions.z / 2,
+        )
+        true_positive = 0
+        false_positive = 0
+        for marker in marker_array.markers:
+            assert bbox.header.frame_id == marker.header.frame_id
+            marker_volume = marker.scale.x * marker.scale.y * marker.scale.z
+            for point in marker.points:
+                if bbox_min_pt[0] <= point.x <= bbox_max_pt[0] and \
+                   bbox_min_pt[1] <= point.y <= bbox_max_pt[1] and \
+                   bbox_min_pt[2] <= point.z <= bbox_max_pt[2]:
+                    true_positive += marker_volume
+                else:
+                    false_positive += marker_volume
+        false_negative = bbox_volume - true_positive
+
+        # intersect over union
+        iu = true_positive / (true_positive + false_negative + false_positive)
+        return iu
+
+    def evaluate(self):
+        self.wait_for_message()
+
+        result = {}
+
+        # viewpoint_0
+        marker_array = self.marker_msg['viewpoint_0']
+        bbox = self.bbox
+        iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
+        result['viewpoint_0'] = iu
+
+        # viewpoint_1
+        marker_array = self.marker_msg['viewpoint_1']
+        bbox = self.bbox
+        iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
+        result['viewpoint_1'] = iu
+
+        # viewpoint_2
+        marker_array = self.marker_msg['viewpoint_2']
+        bbox = self.bbox
+        iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
+        result['viewpoint_2'] = iu
+
+        # label_octomap
+        marker_array = self.marker_msg['label_octomap']
+        bbox = self.bbox
+        iu = self.evaluate_voxel_bbox_iu(marker_array, bbox)
+        result['label_octomap'] = iu
+
+        rp = rospkg.RosPack()
+        result_file = os.path.join(
+            rp.get_path('icra2017'),
+            'eval_result/{}.yaml'.format(self.label_value))
+        with open(result_file, 'w') as f:
+            yaml.dump(result, f, default_flow_style=False)
+
+
+if __name__ == '__main__':
+    rospy.init_node('evaluate_label_octomap')
+    evaluator = EvaluateLabelOctomap()
+    evaluator.evaluate()

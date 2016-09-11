@@ -58,9 +58,11 @@
 
   ;; initial pose
   (send *baxter* :head_pan :joint-angle 70)
+  (send *baxter* :fold-pose-back :larm)
   (send *ri* :ik->bin-entrance :rarm bin
         :gripper-angle 90
         :offset (float-vector -200 0 -80))
+
   (setq init-tc (send (send *baxter* :rarm :end-coords) :copy-worldcoords))
 
   ;; pi/4 rotation in y axis
