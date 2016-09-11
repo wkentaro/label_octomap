@@ -24,12 +24,17 @@
   )
 
 
-(defun request-and-stop-pointcloud
-  ()
+(defun request-and-stop-pointcloud (&key id)
   (unix:usleep (* 250 1000))
   (ros::service-call "/passthrough_cloud/request" (instance std_srvs::EmptyRequest :init))
+  (ros::service-call
+    (format nil "/passthrough_viewpoint_~a/request" id)
+    (instance std_srvs::EmptyRequest :init))
   (unix:usleep (* 1000 1000))
   (ros::service-call "/passthrough_cloud/stop" (instance std_srvs::EmptyRequest :init))
+  (ros::service-call
+    (format nil "/passthrough_viewpoint_~a/stop" id)
+    (instance std_srvs::EmptyRequest :init))
   (unix:usleep (* 250 1000))
   )
 
@@ -57,7 +62,7 @@
         :rthre (/ pi 18)
         )
   (model2real)
-  (request-and-stop-pointcloud)
+  (request-and-stop-pointcloud :id 0)
   ;;
   (setq tc (send init-tc :copy-worldcoords))
   (send tc :rotate (/ pi 4) :y :world)
@@ -66,7 +71,7 @@
         :rthre (/ pi 18)
         )
   (model2real)
-  (request-and-stop-pointcloud)
+  (request-and-stop-pointcloud :id 1)
   ;;
   (setq tc (send init-tc :copy-worldcoords))
   (send tc :rotate (/ pi 4) :y :world)
@@ -76,7 +81,7 @@
         :rthre (/ pi 18)
         )
   (model2real)
-  (request-and-stop-pointcloud)
+  (request-and-stop-pointcloud :id 2)
   )
 
 
