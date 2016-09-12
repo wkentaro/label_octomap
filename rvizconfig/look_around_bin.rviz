@@ -26,7 +26,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Passthrough
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -449,7 +449,7 @@ Visualization Manager:
       Marker Topic: /label_octomap_server_target/output/marker_array/occupied_target
       Name: OccupiedTarget
       Namespaces:
-        map: true
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
@@ -477,22 +477,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.29047
+      Distance: 2.82007
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.55367
-        Y: -0.443921
-        Z: 0.411217
+        X: 0.411263
+        Y: -0.655373
+        Z: 0.358164
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.275398
+      Pitch: 0.365398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.7554
+      Yaw: 0.9254
     Saved: ~
 Window Geometry:
   Displays:
