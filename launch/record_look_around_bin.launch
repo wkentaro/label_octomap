@@ -97,7 +97,7 @@
     <remap from="octomap_point_cloud_centers" to="~output/points" />
     <remap from="cluster_indices" to="~output/cluster_indices" />
     <remap from="marker_array/occupied_fg" to="~output/marker_array/occupied_fg" />
-    <remap from="marker_array/occupied_bg" to="~output/marker_array/occupied_target" />
+    <remap from="marker_array/occupied_bg" to="~output/marker_array/occupied_bg" />
     <remap from="marker_array/free" to="~output/marker_array/free" />
     <rosparam>
       n_label: 40
