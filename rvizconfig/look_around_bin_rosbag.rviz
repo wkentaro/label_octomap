@@ -276,15 +276,15 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.19328
-        Y: -0.301305
-        Z: 0.380002
+        X: 0.952739
+        Y: -0.597986
+        Z: 0.411188
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.579797
+      Pitch: 0.629796
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.10889
+      Yaw: 2.49889
     Saved: ~
 Window Geometry:
   Displays:
