@@ -1,0 +1,6 @@
+boxes:
+- dimensions: [0.15, 0.15, 0.06]
+  frame_id: base
+  name: object_28
+  orientation: [0.0, 0.0, 0.0, 1.0]
+  position: [1.0909961462020874, -0.33754050731658936, 0.5069469809532166]
