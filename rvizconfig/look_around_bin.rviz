@@ -378,13 +378,13 @@ Visualization Manager:
       Update Topic: /simple_marker/update
       Value: false
     - Class: rviz/MarkerArray
-      Enabled: false
+      Enabled: true
       Marker Topic: /label_octomap_server/output/marker_array/occupied_fg
       Name: OccupiedFG
       Namespaces:
         {}
       Queue Size: 100
-      Value: false
+      Value: true
     - Class: rviz/MarkerArray
       Enabled: false
       Marker Topic: /label_octomap_server/output/marker_array/occupied_bg
@@ -445,13 +445,36 @@ Visualization Manager:
       top: 19
       width: 500
     - Class: rviz/MarkerArray
-      Enabled: true
+      Enabled: false
       Marker Topic: /label_octomap_server_target/output/marker_array/occupied_target
       Name: OccupiedTarget
       Namespaces:
         {}
       Queue Size: 100
+      Value: false
+    - Arrow Length: 0.3
+      Axes Length: 0.1
+      Axes Radius: 0.01
+      Class: jsk_rviz_plugin/PoseArray
+      Color: 255; 25; 0
+      Enabled: true
+      Name: PoseArray
+      Shape: Axes
+      Topic: /cluster_indices_decomposer_voxels/centroid_pose_array
+      Unreliable: false
       Value: true
+    - Class: jsk_rviz_plugin/BoundingBoxArray
+      Enabled: true
+      Name: BoundingBoxArray
+      Topic: /right_sib_cpi_decomposer/boxes
+      Unreliable: false
+      Value: true
+      alpha: 0.8
+      color: 25; 255; 0
+      coloring: Auto
+      line width: 0.005
+      only edge: false
+      show coords: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -477,22 +500,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.82007
+      Distance: 1.82798
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.105797
-        Y: -0.385986
-        Z: 0.15823
+        X: 0.258885
+        Y: -0.316349
+        Z: 0.475887
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.370398
+      Pitch: 0.620398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.0404
+      Yaw: 1.5054
     Saved: ~
 Window Geometry:
   Displays:
@@ -510,5 +533,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1937
-  X: -10
+  X: 55
   Y: 14

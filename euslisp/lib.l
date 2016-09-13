@@ -41,7 +41,6 @@
 
   ;; initial pose
   (send *baxter* :head_pan :joint-angle 70)
-  (send *baxter* :fold-pose-back :larm)
   (send *ri* :ik->bin-entrance :rarm bin
         :gripper-angle 90
         :offset (float-vector -200 0 -80))
@@ -78,13 +77,6 @@
         )
   (model2real)
   (request-and-stop-pointcloud :id 2)
-
-  ;; untuck-pose
-  (send *baxter* :untuck-pose :rarm)
-  (model2real)
-
-  ;; sleep for octomap topic to save with rosbag
-  (unix::sleep 3)
   )
 
 
@@ -92,4 +84,10 @@
   (ros::publish
     (format nil "~a/output/moved" (ros::get-name))
     (instance std_msgs::Empty :init))
+  )
+
+
+(defun baxter-rarm-only-pose ()
+  (send *baxter* :larm :angle-vector
+        #f(41.9897 1.03271 5.95459 41.4404 -13.7988 40.188 7.29492 0.0))
   )

@@ -1,0 +1,33 @@
+<launch>
+
+  <arg name="label_value" />
+
+  <arg name="rviz" default="true" />
+
+  <!-- play rosbag -->
+
+  <param name="robot_description" command="$(find xacro)/xacro.py $(find jsk_2016_01_baxter_apc)/robots/baxter.xacro" />
+
+  <param name="use_sim_time" value="true" />
+  <node name="rosbag_play"
+        pkg="rosbag" type="play"
+        args="$(optenv HOME)/.ros/icra2017/$(arg label_value)_pick_backward_object.bag --clock --start 25"
+        launch-prefix="xterm -e">
+  </node>
+
+  <include file="$(find openni2_launch)/launch/openni2.launch">
+    <arg name="camera" value="right_hand_camera"/>
+    <arg name="load_driver" value="false"/>
+    <arg name="depth_registration" value="true"/>
+  </include>
+
+  <!-- visualization -->
+
+  <group if="$(arg rviz)">
+    <node name="$(anon rviz)"
+          pkg="rviz" type="rviz"
+          args="-d $(find icra2017)/rvizconfig/look_around_bin.rviz">
+    </node>
+  </group>
+
+</launch>

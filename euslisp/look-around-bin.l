@@ -22,4 +22,9 @@
 (ros::roseus "look_around_bin" :anonymous nil)
 (setup)
 (look-around-bin :bin :f)
+;; untuck-pose
+(send *baxter* :untuck-pose :rarm)
+(model2real)
+;; sleep for octomap topic to save with rosbag
+(unix::sleep 3)
 (exit)
