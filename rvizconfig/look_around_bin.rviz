@@ -475,6 +475,72 @@ Visualization Manager:
       line width: 0.005
       only edge: false
       show coords: false
+    - Alpha: 0.3
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        kiva_pod_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_y_part0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_y_part1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_y_part2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_y_part3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: KivaModel
+      Robot Description: kiva_pod_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -500,22 +566,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.82798
+      Distance: 2.19539
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.258885
-        Y: -0.316349
-        Z: 0.475887
+        X: 0.0837704
+        Y: -0.247246
+        Z: 0.312948
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.620398
+      Pitch: 0.445398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.5054
+      Yaw: 1.7104
     Saved: ~
 Window Geometry:
   Displays:

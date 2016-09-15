@@ -6,6 +6,7 @@
 
   <!-- play rosbag -->
 
+  <include file="$(find jsk_2015_05_baxter_apc)/launch/include/kiva_pod_state.launch" />
   <param name="robot_description" command="$(find xacro)/xacro.py $(find jsk_2016_01_baxter_apc)/robots/baxter.xacro" />
 
   <param name="use_sim_time" value="true" />
@@ -13,6 +14,8 @@
         pkg="rosbag" type="play"
         args="$(optenv HOME)/.ros/icra2017/$(arg label_value)_pick_backward_object.bag --clock --start 25"
         launch-prefix="xterm -e">
+    <remap from="left_hand_camera/rgb/camera_info" to="right_hand_camera/rgb/camera_info" />
+    <remap from="left_hand_camera/rgb/image_raw" to="right_hand_camera/rgb/image_raw" />
   </node>
 
   <include file="$(find openni2_launch)/launch/openni2.launch">
@@ -20,6 +23,48 @@
     <arg name="load_driver" value="false"/>
     <arg name="depth_registration" value="true"/>
   </include>
+
+  <!-- image extraction -->
+
+  <rosparam command="load" file="$(find hrp2_apc)/config/label_names.yaml" />
+  <node name="fcn_object_segmentation"
+        pkg="jsk_perception" type="fcn_object_segmentation.py">
+    <remap from="~input" to="/right_hand_camera/rgb/image_rect_color" />
+    <rosparam subst_value="true">
+      gpu: 0
+      model_name: fcn32s
+      model_h5: $(find jsk_apc2016_common)/trained_data/fcn32s_6000.chainermodel
+      proba_threshold: 0.5
+    </rosparam>
+    <remap from="~target_names" to="label_names" />
+  </node>
+  <node name="extract_image_channel"
+        pkg="jsk_perception" type="extract_image_channel.py">
+    <remap from="~input" to="/fcn_object_segmentation/output/proba_image" />
+    <rosparam subst_value="true">
+      channel: $(arg label_value)
+    </rosparam>
+  </node>
+  <node name="colorize_float_image"
+        pkg="jsk_perception" type="colorize_float_image">
+    <remap from="~input" to="extract_image_channel/output" />
+  </node>
+  <node name="overlay_image_color_on_mono"
+        pkg="jsk_perception" type="overlay_image_color_on_mono">
+    <remap from="~input/color" to="colorize_float_image/output" />
+    <remap from="~input/mono" to="/right_hand_camera/rgb/image_rect_color" />
+  </node>
+  <!--
+  <node name="extract_images_sync"
+        pkg="image_view" type="extract_images_sync">
+    <rosparam subst_value="true">
+      inputs:
+        - /right_hand_camera/rgb/image_rect_color
+        - /overlay_image_color_on_mono/output
+      filename_format: $(optenv HOME)/.ros/icra2017/proba_images/$(arg label_value)_%04i_%i.jpg
+    </rosparam>
+  </node>
+  -->
 
   <!-- visualization -->
 
