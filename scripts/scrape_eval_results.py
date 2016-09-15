@@ -14,18 +14,27 @@ this_dir = osp.dirname(osp.realpath(__file__))
 
 result_files = glob.glob(osp.join(this_dir, '../eval_result/*.yaml'))
 
-columns = ['label', 'iu_view_0', 'iu_view_1', 'iu_view_2', 'iu_label_octomap']
+columns = [
+    'label',
+    'iu_view_0',
+    'iu_view_1',
+    'iu_view_2',
+    'iu_label_octomap',
+    'image_file',
+]
 data = []
 filename_to_label = lambda x: int(osp.splitext(osp.basename(x))[0])
 for result_file in sorted(result_files, key=filename_to_label):
     iu_data = yaml.load(open(result_file))
     label_value = filename_to_label(result_file)
+    img_file = str(label_value) + '.jpg'
     row = [
         label_value,
         iu_data['viewpoint_0'],
         iu_data['viewpoint_1'],
         iu_data['viewpoint_2'],
         iu_data['label_octomap'],
+        img_file,
     ]
     data.append(row)
 df = pandas.DataFrame(data=data, columns=columns)
@@ -39,3 +48,5 @@ mean_iu_label_octomap = df['iu_label_octomap'].mean()
 print('mean_iu_single_view:', mean_iu_single_view)
 print('mean_of_max_iu_single_view:', mean_of_max_iu_single_view)
 print('mean_iu_label_octomap:', mean_iu_label_octomap)
+
+print(df.to_latex(float_format=lambda x: '%.3f' % x))
