@@ -80,7 +80,7 @@
           (send *ri* :recognize-objects-segmentation-in-bin :rarm :f)
           (send *ri* :pick-object :rarm :f :target-offset #f(50 0 0))
           (ros::ros-info-green "[PICK:~a] <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" label)
-          (unless (send *ri* :graspinp :rarm)
+          (unless (send *ri* :graspingp :rarm)
             (pick-backward-object :target-label target-label)
             (return-from 'pick-backward-object nil)
             )
