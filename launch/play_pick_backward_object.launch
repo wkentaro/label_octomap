@@ -16,6 +16,8 @@
         launch-prefix="xterm -e">
     <remap from="left_hand_camera/rgb/camera_info" to="right_hand_camera/rgb/camera_info" />
     <remap from="left_hand_camera/rgb/image_raw" to="right_hand_camera/rgb/image_raw" />
+    <remap from="left_sib_cpi_decomposer/boxes" to="right_sib_cpi_decomposer/boxes" />
+    <remap from="left_sib_cpi_decomposer/centroid_pose_array" to="right_sib_cpi_decomposer/centroid_pose_array" />
   </node>
 
   <include file="$(find openni2_launch)/launch/openni2.launch">
