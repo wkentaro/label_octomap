@@ -24,7 +24,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Passthrough
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -380,17 +380,17 @@ Visualization Manager:
       Marker Topic: /label_octomap_server/output/marker_array/occupied_fg
       Name: OccupiedFG
       Namespaces:
-        map: true
+        {}
       Queue Size: 100
       Value: true
     - Class: rviz/MarkerArray
-      Enabled: true
+      Enabled: false
       Marker Topic: /label_octomap_server/output/marker_array/occupied_bg
       Name: OccupiedBG
       Namespaces:
         {}
       Queue Size: 100
-      Value: true
+      Value: false
     - Class: jsk_rviz_plugin/OverlayImage
       Enabled: true
       Name: Raw
@@ -571,15 +571,15 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.109784
-        Y: -0.238744
-        Z: 0.324772
+        X: 0.392293
+        Y: -0.217497
+        Z: 0.352166
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.350398
+      Pitch: 0.340398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.6804
+      Yaw: 1.7354
     Saved: ~
 Window Geometry:
   Displays:
@@ -597,5 +597,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1937
-  X: 516
-  Y: 352
+  X: 506
+  Y: 342
