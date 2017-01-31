@@ -16,7 +16,7 @@
 
   <group if="$(arg launch_main)">
     <node name="pick_backward_object"
-          pkg="icra2017" type="pick-backward-object.l"
+          pkg="label_octomap" type="pick-backward-object.l"
           required="true" output="screen">
       <rosparam subst_value="true">
         target_label: $(arg label_value)
@@ -39,7 +39,7 @@
                 /right_sib_cpi_decomposer/boxes
                 /right_sib_cpi_decomposer/centroid_pose_array
 
-                -O $(optenv HOME)/.ros/icra2017/$(arg label_value)_pick_backward_object.bag
+                -O $(optenv HOME)/.ros/label_octomap/$(arg label_value)_pick_backward_object.bag
           ">
     </node>
   </group>
@@ -214,7 +214,7 @@
   <group if="$(arg rviz)">
     <node name="$(anon rviz)"
           pkg="rviz" type="rviz"
-          args="-d $(find icra2017)/rvizconfig/look_around_bin.rviz">
+          args="-d $(find label_octomap)/rvizconfig/look_around_bin.rviz">
     </node>
   </group>
 

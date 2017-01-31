@@ -1,6 +1,6 @@
 ;; vim: set ft=lisp:
 
-(ros::load-ros-manifest "icra2017")
+(ros::load-ros-manifest "label_octomap")
 
 
 (require "package://jsk_2016_01_baxter_apc/euslisp/jsk_2016_01_baxter_apc/util.l")

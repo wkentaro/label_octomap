@@ -11,7 +11,7 @@
   <param name="use_sim_time" value="true" />
   <node name="rosbag_play"
         pkg="rosbag" type="play"
-        args="$(optenv HOME)/.ros/icra2017/$(arg label_value)_look_around_bin.bag --clock --start 25"
+        args="$(optenv HOME)/.ros/label_octomap/$(arg label_value)_look_around_bin.bag --clock --start 25"
         launch-prefix="xterm -e">
   </node>
 
@@ -35,14 +35,14 @@
         output="screen">
     <remap from="~server" to="transformable_interactive_server" />
     <rosparam subst_value="true">
-      config_file: $(find icra2017)/config/$(arg label_value).yaml
+      config_file: $(find label_octomap)/config/$(arg label_value).yaml
       config_auto_save: true
     </rosparam>
   </node>
 
   <!-- Node to evaluate the segmentation -->
   <node name="evaluate_label_octomap"
-        pkg="icra2017" type="evaluate_label_octomap"
+        pkg="label_octomap" type="evaluate_label_octomap"
         output="screen"
         required="true">
     <rosparam subst_value="true">
@@ -55,7 +55,7 @@
   <group if="$(arg rviz)">
     <node name="$(anon rviz)"
           pkg="rviz" type="rviz"
-          args="-d $(find icra2017)/rvizconfig/look_around_bin_rosbag.rviz">
+          args="-d $(find label_octomap)/rvizconfig/look_around_bin_rosbag.rviz">
     </node>
   </group>
 

@@ -164,7 +164,7 @@ class EvaluateLabelOctomap(object):
 
         rp = rospkg.RosPack()
         result_file = os.path.join(
-            rp.get_path('icra2017'),
+            rp.get_path('label_octomap'),
             'eval_result/{}.yaml'.format(self.label_value))
         with open(result_file, 'w') as f:
             yaml.dump(result, f, default_flow_style=False)

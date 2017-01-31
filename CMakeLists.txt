@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(icra2017)
+project(label_octomap)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -100,7 +100,7 @@ find_package(catkin REQUIRED
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES icra2017
+#  LIBRARIES label_octomap
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
@@ -114,24 +114,24 @@ catkin_package(
 # include_directories(include)
 
 ## Declare a C++ library
-# add_library(icra2017
-#   src/${PROJECT_NAME}/icra2017.cpp
+# add_library(label_octomap
+#   src/${PROJECT_NAME}/label_octomap.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(icra2017 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(label_octomap ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(icra2017_node src/icra2017_node.cpp)
+# add_executable(label_octomap_node src/label_octomap_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(icra2017_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(label_octomap_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(icra2017_node
+# target_link_libraries(label_octomap_node
 #   ${catkin_LIBRARIES}
 # )
 
@@ -150,7 +150,7 @@ catkin_package(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS icra2017 icra2017_node
+# install(TARGETS label_octomap label_octomap_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -175,7 +175,7 @@ catkin_package(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_icra2017.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_label_octomap.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
