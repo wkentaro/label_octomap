@@ -1,0 +1,34 @@
+<launch>
+
+  <arg name="INPUT_CLOUD" />
+  <arg name="MANAGER" />
+
+  <node name="euclidean_clustering"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/EuclideanClustering $(arg MANAGER)">
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
+    <rosparam>
+      min_size: 10
+      max_size: 10000
+      tolerance: 0.04
+    </rosparam>
+  </node>
+  <node name="cluster_indices_decomposer"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/ClusterPointIndicesDecomposer $(arg MANAGER)">
+    <remap from="~input" to="marker_array_voxel_to_pointcloud/output" />
+    <remap from="~target" to="euclidean_clustering/output" />
+    <rosparam>
+      queue_size: 1000
+    </rosparam>
+  </node>
+  <node name="bboxes_to_bbox"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl_utils/BoundingBoxArrayToBoundingBox $(arg MANAGER)">
+    <remap from="~input" to="cluster_indices_decomposer/boxes" />
+    <rosparam>
+      index: 0
+    </rosparam>
+  </node>
+
+</launch>
