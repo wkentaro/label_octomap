@@ -26,6 +26,10 @@
     <arg name="label_value" value="$(arg label_value)" />
   </include>
 
+  <include file="$(find label_octomap)/launch/object_segmentation_3d.launch">
+    <arg name="label_value" value="$(arg label_value)" />
+  </include>
+
   <!-- annotation for visualization -->
 
   <node name="transformable_interactive_server"
