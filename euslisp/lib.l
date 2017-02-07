@@ -7,11 +7,12 @@
 
 
 (defun model2real (&key (tm 3000) (wait? t))
+  (publish-move :startp t)
   (send *ri* :angle-vector (send *baxter* :angle-vector) tm)
   (when wait?
     (send *ri* :wait-interpolation)
+    (publish-move :startp nil)
     )
-  (publish-moved)
   )
 
 
@@ -80,10 +81,13 @@
   )
 
 
-(defun publish-moved ()
-  (ros::publish
-    (format nil "~a/output/moved" (ros::get-name))
-    (instance std_msgs::Empty :init))
+(defun publish-move (&key startp)
+  (let ((msg (instance std_msgs::Empty :init)))
+    (if startp
+      (ros::publish (format nil "~a/output/start" (ros::get-name)) msg)
+      (ros::publish (format nil "~a/output/stop" (ros::get-name)) msg)
+      )
+    )
   )
 
 

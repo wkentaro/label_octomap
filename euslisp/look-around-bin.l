@@ -8,13 +8,15 @@
 
 
 (defun setup ()
+  (ros::advertise (format nil "~a/output/start" (ros::get-name)) std_msgs::Empty)
+  (ros::advertise (format nil "~a/output/stop" (ros::get-name)) std_msgs::Empty)
+  (unix::sleep 1)
   (unless (boundp '*ri*)
     (jsk_2016_01_baxter_apc::baxter-init)
     (send *ri* :gripper-servo-on)
     ; (objects (list *baxter*))
     (send *ri* :recognize-bin-boxes)
     )
-  (ros::advertise (format nil "~a/output/moved" (ros::get-name)) std_msgs::Empty)
   )
 
 

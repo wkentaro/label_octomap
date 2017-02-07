@@ -1,0 +1,154 @@
+<launch>
+
+  <arg name="label_value" />
+
+  <arg name="MANAGER" value="right_hand_camera/right_hand_camera_manager" />
+  <arg name="INPUT_IMAGE" value="/right_hand_camera/rgb/image_rect_color" />
+  <arg name="INPUT_CLOUD" value="/right_hand_camera/depth_registered/points" />
+
+  <rosparam command="load" file="$(find hrp2_apc)/config/label_names.yaml" />
+
+  <node name="fcn_object_segmentation"
+        pkg="jsk_perception" type="fcn_object_segmentation.py">
+    <remap from="~input" to="$(arg INPUT_IMAGE)" />
+    <rosparam subst_value="true">
+      gpu: 0
+      model_name: fcn32s
+      model_h5: $(find jsk_apc2016_common)/trained_data/fcn32s_v2_148000.chainermodel
+      proba_threshold: 0.5
+    </rosparam>
+    <remap from="~target_names" to="label_names" />
+  </node>
+  <node name="label_image_decomposer"
+        pkg="jsk_perception" type="label_image_decomposer.py">
+    <remap from="~input" to="$(arg INPUT_IMAGE)" />
+    <remap from="~input/label" to="fcn_object_segmentation/output" />
+    <remap from="~label_names" to="label_names" />
+    <rosparam>
+      approximate_sync: false
+      queue_size: 100
+    </rosparam>
+  </node>
+
+  <node name="passthrough_cloud"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_topic_tools/Passthrough $(arg MANAGER)">
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
+  </node>
+  <node name="resize_points_publisher"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/ResizePointsPublisher $(arg MANAGER)">
+    <remap from="~input" to="passthrough_cloud/output" />
+    <remap from="~output" to="passthrough_cloud/output/quarter" />
+    <rosparam>
+      step_x: 4
+      step_y: 4
+    </rosparam>
+  </node>
+
+  <!--
+
+       LabelOctoMap
+
+    -->
+  <node name="image_resizer_proba_image"
+        pkg="nodelet" type="nodelet"
+        args="load resized_image_transport/ImageResizer $(arg MANAGER)">
+        <remap from="~input/image" to="fcn_object_segmentation/output/proba_image" />
+    <remap from="~output/image" to="fcn_object_segmentation/output/proba_image/quarter" />
+    <rosparam>
+      use_camera_info: false
+      resize_scale_x: 0.25
+      resize_scale_y: 0.25
+      interpolation: LINEAR
+    </rosparam>
+  </node>
+  <node name="label_octomap_server"
+        pkg="octomap_server" type="label_octomap_server"
+        output="screen">
+    <remap from="cloud_in" to="passthrough_cloud/output/quarter" />
+    <remap from="proba_image_in" to="fcn_object_segmentation/output/proba_image/quarter" />
+    <remap from="octomap_point_cloud_centers" to="~output/points" />
+    <remap from="cluster_indices" to="~output/cluster_indices" />
+    <remap from="marker_array/occupied_fg" to="~output/marker_array/occupied_fg" />
+    <remap from="marker_array/occupied_bg" to="~output/marker_array/occupied_bg" />
+    <remap from="marker_array/free" to="~output/marker_array/free" />
+    <rosparam>
+      n_label: 40
+      frame_id: base
+      resolution: 0.01
+      latch: false
+      publish_periodically: true
+      max_range: 1.0
+    </rosparam>
+  </node>
+  <group ns="label_octomap">
+    <node name="cluster_indices_to_indices"
+          pkg="nodelet" type="nodelet"
+          args="load jsk_pcl_utils/ClusterPointIndicesToPointIndices $(arg MANAGER)">
+      <remap from="~input" to="/label_octomap_server/output/cluster_indices" />
+      <rosparam subst_value="true">
+        index: $(arg label_value)
+      </rosparam>
+    </node>
+    <node name="extract_indices"
+          pkg="nodelet" type="nodelet"
+          args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
+      <remap from="~input" to="/passthrough_cloud/output/quarter" />
+      <remap from="~indices" to="cluster_indices_to_indices/output" />
+    </node>
+    <include file="$(find label_octomap)/launch/include/cloud_to_box.xml">
+      <arg name="INPUT_CLOUD" value="/label_octomap/extract_indices/output" />
+      <arg name="MANAGER" value="$(arg MANAGER)" />
+    </include>
+  </group>
+
+  <!--
+
+       Single Registeration
+
+    -->
+  <group ns="single_registration">
+    <node name="label_to_mask_image"
+          pkg="nodelet" type="nodelet"
+          args="load jsk_perception/LabelToMaskImage $(arg MANAGER)">
+      <remap from="~input" to="/fcn_object_segmentation/output" />
+      <rosparam subst_value="true">
+        label_value: $(arg label_value)
+      </rosparam>
+    </node>
+    <node name="image_resizer_mask"
+          pkg="nodelet" type="nodelet"
+          args="load resized_image_transport/ImageResizer $(arg MANAGER)">
+      <remap from="~input/image" to="label_to_mask_image/output" />
+      <remap from="~output/image" to="label_to_mask_image/output/quarter" />
+      <rosparam>
+        use_camera_info: false
+        resize_scale_x: 0.25
+        resize_scale_y: 0.25
+        interpolation: NEARST
+      </rosparam>
+    </node>
+    <node name="mask_image_to_indices"
+          pkg="nodelet" type="nodelet"
+          args="load jsk_pcl_utils/MaskImageToPointIndices $(arg MANAGER)">
+      <remap from="~input" to="label_to_mask_image/output/quarter" />
+    </node>
+    <node name="extract_indices"
+          pkg="nodelet" type="nodelet"
+          args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
+      <remap from="~input" to="/passthrough_cloud/output/quarter" />
+      <remap from="~indices" to="mask_image_to_indices/output" />
+      <rosparam>
+        approximate_sync: true
+        queue_size: 100
+        keep_organized: true
+      </rosparam>
+    </node>
+    <include file="$(find label_octomap)/launch/include/cloud_to_box.xml">
+      <arg name="INPUT_CLOUD" value="/single_registration/extract_indices/output" />
+      <arg name="MANAGER" value="$(arg MANAGER)" />
+    </include>
+  </group>
+
+</launch>

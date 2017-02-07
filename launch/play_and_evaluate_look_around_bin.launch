@@ -19,6 +19,11 @@
     <arg name="camera" value="right_hand_camera"/>
     <arg name="load_driver" value="false"/>
     <arg name="depth_registration" value="true"/>
+    <arg name="publish_tf" value="false"/>
+  </include>
+
+  <include file="$(find label_octomap)/launch/object_segmentation_3d.launch">
+    <arg name="label_value" value="$(arg label_value)" />
   </include>
 
   <!-- annotation for visualization -->
@@ -31,7 +36,7 @@
     </rosparam>
   </node>
   <node name="transformable_boxes"
-        pkg="fcn_3d" type="transformable_boxes_client"
+        pkg="jsk_interactive_marker" type="transformable_markers_client.py"
         output="screen">
     <remap from="~server" to="transformable_interactive_server" />
     <rosparam subst_value="true">
