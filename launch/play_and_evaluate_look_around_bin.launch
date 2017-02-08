@@ -12,7 +12,7 @@
   <node name="rosbag_play"
         pkg="rosbag" type="play"
         args="$(optenv HOME)/.ros/label_octomap/$(arg label_value)_look_around_bin.bag --clock --start 25"
-        >
+        required="true">
   </node>
 
   <include file="$(find openni2_launch)/launch/openni2.launch">
@@ -20,10 +20,6 @@
     <arg name="load_driver" value="false"/>
     <arg name="depth_registration" value="true"/>
     <arg name="publish_tf" value="false"/>
-  </include>
-
-  <include file="$(find label_octomap)/launch/object_segmentation_3d.launch">
-    <arg name="label_value" value="$(arg label_value)" />
   </include>
 
   <include file="$(find label_octomap)/launch/object_segmentation_3d.launch">
@@ -106,5 +102,19 @@
           args="-d $(find label_octomap)/rvizconfig/look_around_bin_rosbag.rviz">
     </node>
   </group>
+
+  <!-- dump log -->
+  <node name="rosbag_record"
+        pkg="rosbag" type="record"
+        args="-b 0
+              -O $(find label_octomap)/eval_result/rosbags/$(arg label_value).bag
+              /look_around_bin_main/output/start
+              /look_around_bin_main/output/stop
+              /label_octomap/evaluate_voxel_seg_by_gt/output
+              /label_octomap/evaluate_box_seg_by_gt/output
+              /single_registration/evaluate_voxel_seg_by_gt/output
+              /single_registration/evaluate_box_seg_by_gt/output
+             ">
+  </node>
 
 </launch>
