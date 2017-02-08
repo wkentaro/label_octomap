@@ -4,6 +4,10 @@
 
   <arg name="rviz" default="true" />
 
+  <arg name="xterm" default="false" />
+  <arg name="launch_prefix" value="xterm -e" if="$(arg xterm)"/>
+  <arg name="launch_prefix" value="" unless="$(arg xterm)"/>
+
   <!-- play rosbag -->
 
   <param name="robot_description" command="$(find xacro)/xacro.py $(find jsk_2016_01_baxter_apc)/robots/baxter.xacro" />
@@ -13,7 +17,7 @@
         pkg="rosbag" type="play"
         args="$(optenv HOME)/.ros/label_octomap/$(arg label_value)_look_around_bin.bag --clock --start 25"
         required="true"
-        launch-prefix="xterm -e">
+        launch-prefix="$(arg launch_prefix)">
   </node>
 
   <include file="$(find openni2_launch)/launch/openni2.launch">
