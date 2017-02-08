@@ -12,7 +12,8 @@
   <node name="rosbag_play"
         pkg="rosbag" type="play"
         args="$(optenv HOME)/.ros/label_octomap/$(arg label_value)_look_around_bin.bag --clock --start 25"
-        required="true">
+        required="true"
+        launch-prefix="xterm -e">
   </node>
 
   <include file="$(find openni2_launch)/launch/openni2.launch">
