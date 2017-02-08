@@ -16,10 +16,14 @@
   <node name="cluster_indices_decomposer"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl/ClusterPointIndicesDecomposer $(arg MANAGER)">
-    <remap from="~input" to="marker_array_voxel_to_pointcloud/output" />
+    <remap from="~input" to="$(arg INPUT_CLOUD)" />
     <remap from="~target" to="euclidean_clustering/output" />
     <rosparam>
+      approximate_sync: false
       queue_size: 1000
+      align_boxes: true
+      align_boxes_with_plane: false
+      target_frame_id: base
     </rosparam>
   </node>
   <node name="bboxes_to_bbox"

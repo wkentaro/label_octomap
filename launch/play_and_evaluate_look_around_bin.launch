@@ -12,7 +12,7 @@
   <node name="rosbag_play"
         pkg="rosbag" type="play"
         args="$(optenv HOME)/.ros/label_octomap/$(arg label_value)_look_around_bin.bag --clock --start 25"
-        launch-prefix="xterm -e">
+        >
   </node>
 
   <include file="$(find openni2_launch)/launch/openni2.launch">
@@ -29,6 +29,18 @@
   <include file="$(find label_octomap)/launch/object_segmentation_3d.launch">
     <arg name="label_value" value="$(arg label_value)" />
   </include>
+
+  <arg name="MANAGER" value="right_hand_camera/right_hand_camera_manager" />
+  <group ns="right_hand_camera">
+    <node name="right_hand_camera_manager"
+          pkg="nodelet" type="nodelet" args="manager" />
+  </group>
+
+  <node name="call_pasthrough_three_views"
+        pkg="label_octomap" type="call_passthrough_three_views.py">
+    <remap from="~start" to="passthrough_cloud/request" />
+    <remap from="~stop" to="passthrough_cloud/stop" />
+  </node>
 
   <!-- annotation for visualization -->
 
@@ -48,16 +60,43 @@
       config_auto_save: true
     </rosparam>
   </node>
-
-  <!-- Node to evaluate the segmentation -->
-  <node name="evaluate_label_octomap"
-        pkg="label_octomap" type="evaluate_label_octomap"
-        output="screen"
-        required="true">
-    <rosparam subst_value="true">
-      label_value: $(arg label_value)
+  <node name="bboxes_to_gt_box"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl_utils/BoundingBoxArrayToBoundingBox $(arg MANAGER)">
+    <remap from="~input" to="transformable_boxes/output/boxes" />
+    <rosparam>
+      index: 0
     </rosparam>
   </node>
+
+  <!-- Node to evaluate the segmentation -->
+  <group ns="label_octomap">
+    <node name="evaluate_voxel_seg_by_gt"
+          pkg="jsk_pcl_ros_utils" type="evaluate_voxel_segmentation_by_gt_box.py">
+      <remap from="~input/box_gt" to="/bboxes_to_gt_box/output" />
+      <remap from="~input/markers" to="/label_octomap_server/output/marker_array/occupied" />
+      <rosparam subst_value="true">
+        marker_ns: $(arg label_value)
+      </rosparam>
+    </node>
+    <node name="evaluate_box_seg_by_gt"
+          pkg="jsk_pcl_ros_utils" type="evaluate_box_segmentation_by_gt_box.py">
+      <remap from="~input/box_gt" to="/bboxes_to_gt_box/output" />
+      <remap from="~input/box" to="bboxes_to_bbox/output" />
+    </node>
+  </group>
+  <group ns="single_registration">
+    <node name="evaluate_voxel_seg_by_gt"
+          pkg="jsk_pcl_ros_utils" type="evaluate_voxel_segmentation_by_gt_box.py">
+      <remap from="~input/box_gt" to="/bboxes_to_gt_box/output" />
+      <remap from="~input/markers" to="octree_voxel_grid/output_marker_array" />
+    </node>
+    <node name="evaluate_box_seg_by_gt"
+          pkg="jsk_pcl_ros_utils" type="evaluate_box_segmentation_by_gt_box.py">
+      <remap from="~input/box_gt" to="/bboxes_to_gt_box/output" />
+      <remap from="~input/box" to="bboxes_to_bbox/output" />
+    </node>
+  </group>
 
   <!-- visualization -->
 

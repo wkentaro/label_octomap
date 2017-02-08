@@ -2,7 +2,7 @@
 
   <arg name="label_value" />
 
-  <arg name="MANAGER" value="right_hand_camera/right_hand_camera_manager" />
+  <arg name="MANAGER" value="/right_hand_camera/right_hand_camera_manager" />
   <arg name="INPUT_IMAGE" value="/right_hand_camera/rgb/image_rect_color" />
   <arg name="INPUT_CLOUD" value="/right_hand_camera/depth_registered/points" />
 
@@ -70,7 +70,7 @@
     <remap from="proba_image_in" to="fcn_object_segmentation/output/proba_image/quarter" />
     <remap from="octomap_point_cloud_centers" to="~output/points" />
     <remap from="cluster_indices" to="~output/cluster_indices" />
-    <remap from="marker_array/occupied_fg" to="~output/marker_array/occupied_fg" />
+    <remap from="marker_array/occupied_fg" to="~output/marker_array/occupied" />
     <remap from="marker_array/occupied_bg" to="~output/marker_array/occupied_bg" />
     <remap from="marker_array/free" to="~output/marker_array/free" />
     <rosparam>
@@ -94,7 +94,7 @@
     <node name="extract_indices"
           pkg="nodelet" type="nodelet"
           args="load jsk_pcl/ExtractIndices $(arg MANAGER)">
-      <remap from="~input" to="/passthrough_cloud/output/quarter" />
+      <remap from="~input" to="/label_octomap_server/output/points" />
       <remap from="~indices" to="cluster_indices_to_indices/output" />
     </node>
     <include file="$(find label_octomap)/launch/include/cloud_to_box.xml">
@@ -126,7 +126,7 @@
         use_camera_info: false
         resize_scale_x: 0.25
         resize_scale_y: 0.25
-        interpolation: NEARST
+        interpolation: NEAREST
       </rosparam>
     </node>
     <node name="mask_image_to_indices"
@@ -149,6 +149,14 @@
       <arg name="INPUT_CLOUD" value="/single_registration/extract_indices/output" />
       <arg name="MANAGER" value="$(arg MANAGER)" />
     </include>
+    <node name="octree_voxel_grid"
+          pkg="nodelet" type="nodelet"
+          args="load jsk_pcl/OctreeVoxelGrid $(arg MANAGER)">
+      <remap from="~input" to="/single_registration/extract_indices/output" />
+      <rosparam>
+        resolution: 0.01
+      </rosparam>
+    </node>
   </group>
 
 </launch>
