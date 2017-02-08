@@ -149,10 +149,18 @@
       <arg name="INPUT_CLOUD" value="/single_registration/extract_indices/output" />
       <arg name="MANAGER" value="$(arg MANAGER)" />
     </include>
+    <node name="transform_cloud"
+          pkg="nodelet" type="nodelet"
+          args="load jsk_pcl/TfTransformCloud $(arg MANAGER)">
+      <remap from="~input" to="/single_registration/extract_indices/output" />
+      <rosparam>
+        target_frame_id: base
+      </rosparam>
+    </node>
     <node name="octree_voxel_grid"
           pkg="nodelet" type="nodelet"
           args="load jsk_pcl/OctreeVoxelGrid $(arg MANAGER)">
-      <remap from="~input" to="/single_registration/extract_indices/output" />
+      <remap from="~input" to="transform_cloud/output" />
       <rosparam>
         resolution: 0.01
       </rosparam>
