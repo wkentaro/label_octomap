@@ -3,9 +3,12 @@ Panels:
     Help Height: 0
     Name: Displays
     Property Tree Widget:
-      Expanded: ~
+      Expanded:
+        - /LabelOctoMap1/Namespaces1
+        - /RightArm1/Links1
+        - /Camera1/Visibility1
       Splitter Ratio: 0.5
-    Tree Height: 809
+    Tree Height: 513
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -109,9 +112,188 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
+      Enabled: false
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+      Name: RobotModel
+      Robot Description: robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: false
+      Visual Enabled: true
+    - Class: rviz/InteractiveMarkers
+      Enable Transparency: true
+      Enabled: false
+      Name: InteractiveMarkers
+      Show Axes: false
+      Show Descriptions: true
+      Show Visual Aids: false
+      Update Topic: /simple_marker/update
+      Value: false
+    - Class: rviz/MarkerArray
+      Enabled: true
+      Marker Topic: /label_octomap_server/output/marker_array/occupied
+      Name: LabelOctoMap
+      Namespaces:
+        0: true
+        14: true
+        2: true
+        24: true
+        27: true
+        37: true
+        5: true
+      Queue Size: 100
+      Value: true
+    - Class: jsk_rviz_plugin/OverlayImage
+      Enabled: true
+      Name: Raw
+      Topic: /right_hand_camera/rgb/image_rect_color
+      Value: true
+      alpha: 0.8
+      height: 128
+      keep aspect ratio: true
+      left: 1025
+      top: 409
+      width: 500
+    - Class: jsk_rviz_plugin/OverlayImage
+      Enabled: false
+      Name: Label
+      Topic: /colorize_labels/output
+      Value: false
+      alpha: 0.8
+      height: 128
+      keep aspect ratio: true
+      left: 1214
+      top: 12
+      width: 300
+    - Background Alpha: 0.8
+      Background Color: 0; 0; 0
+      Class: jsk_rviz_plugin/OverlayText
+      Enabled: false
+      Foreground Alpha: 0.8
+      Foreground Color: 25; 255; 240
+      Name: LabelNames
+      Overtake Color Properties: true
+      Overtake Position Properties: true
+      Topic: /label_names_overlay/output
+      Value: false
+      font: DejaVu Sans Mono
+      height: 770
+      left: 0
+      line width: 2
+      text size: 12
+      top: 0
+      width: 380
+    - Class: jsk_rviz_plugin/OverlayImage
+      Enabled: true
+      Name: Label
+      Topic: /label_image_decomposer/output/label_viz
+      Value: true
+      alpha: 0.8
+      height: 128
+      keep aspect ratio: true
+      left: 1023
+      top: 19
+      width: 500
+    - Arrow Length: 0.3
+      Axes Length: 0.1
+      Axes Radius: 0.01
+      Class: jsk_rviz_plugin/PoseArray
+      Color: 255; 25; 0
+      Enabled: true
+      Name: PoseArray
+      Shape: Axes
+      Topic: /cluster_indices_decomposer_voxels/centroid_pose_array
+      Unreliable: false
+      Value: true
+    - Class: jsk_rviz_plugin/BoundingBoxArray
+      Enabled: true
+      Name: BoundingBoxArray
+      Topic: /right_hand_camera/cluster_indices_decomposer_target/boxes
+      Unreliable: false
+      Value: true
+      alpha: 0.8
+      color: 25; 255; 0
+      coloring: Auto
+      line width: 0.005
+      only edge: false
+      show coords: false
+    - Alpha: 0.3
+      Class: rviz/RobotModel
+      Collision Enabled: false
       Enabled: true
       Links:
         All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        kiva_pod_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_y_part0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_y_part1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_y_part2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_y_part3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        kiva_pod_z_part4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: KivaModel
+      Robot Description: kiva_pod_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: false
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
@@ -124,17 +306,17 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         collision_head_link_2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         display:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         dummyhead1:
           Alpha: 1
           Show Axes: false
@@ -143,7 +325,7 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         head_camera:
           Alpha: 1
           Show Axes: false
@@ -160,32 +342,32 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_gripper_vacuum_pad:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_gripper_vacuum_pad_base:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_hand:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_hand_accelerometer:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_hand_camera:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_hand_camera_axis:
           Alpha: 1
           Show Axes: false
@@ -194,22 +376,22 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_lower_elbow:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_lower_forearm:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_lower_shoulder:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_torso_itb:
           Alpha: 1
           Show Axes: false
@@ -218,37 +400,37 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_upper_elbow_visual:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_upper_forearm:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_upper_forearm_visual:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_upper_shoulder:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_wrist:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         pedestal:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_itb:
           Alpha: 1
           Show Axes: false
@@ -349,196 +531,77 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         sonar_ring:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         torso:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
-      Name: RobotModel
+          Value: false
+      Name: RightArm
       Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
       Visual Enabled: true
-    - Class: rviz/InteractiveMarkers
-      Enable Transparency: true
-      Enabled: false
-      Name: InteractiveMarkers
-      Show Axes: false
-      Show Descriptions: true
-      Show Visual Aids: false
-      Update Topic: /simple_marker/update
-      Value: false
-    - Class: rviz/MarkerArray
+    - Class: jsk_rviz_plugin/CameraInfo
       Enabled: true
-      Marker Topic: /label_octomap_server/output/marker_array/occupied_fg
-      Name: OccupiedFG
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: true
-    - Class: rviz/MarkerArray
-      Enabled: false
-      Marker Topic: /label_octomap_server/output/marker_array/occupied_bg
-      Name: OccupiedBG
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
-    - Class: jsk_rviz_plugin/OverlayImage
-      Enabled: true
-      Name: Raw
-      Topic: /right_hand_camera/rgb/image_rect_color
-      Value: true
-      alpha: 0.8
-      height: 128
-      keep aspect ratio: true
-      left: 1025
-      top: 409
-      width: 500
-    - Class: jsk_rviz_plugin/OverlayImage
-      Enabled: false
-      Name: Label
-      Topic: /colorize_labels/output
-      Value: false
-      alpha: 0.8
-      height: 128
-      keep aspect ratio: true
-      left: 1214
-      top: 12
-      width: 300
-    - Background Alpha: 0.8
-      Background Color: 0; 0; 0
-      Class: jsk_rviz_plugin/OverlayText
-      Enabled: false
-      Foreground Alpha: 0.8
-      Foreground Color: 25; 255; 240
-      Name: LabelNames
-      Overtake Color Properties: true
-      Overtake Position Properties: true
-      Topic: /label_names_overlay/output
-      Value: false
-      font: DejaVu Sans Mono
-      height: 770
-      left: 0
-      line width: 2
-      text size: 12
-      top: 0
-      width: 380
-    - Class: jsk_rviz_plugin/OverlayImage
-      Enabled: true
-      Name: Label
-      Topic: /label_image_decomposer/output/label_viz
-      Value: true
-      alpha: 0.8
-      height: 128
-      keep aspect ratio: true
-      left: 1023
-      top: 19
-      width: 500
-    - Class: rviz/MarkerArray
-      Enabled: false
-      Marker Topic: /label_octomap_server_target/output/marker_array/occupied_target
-      Name: OccupiedTarget
-      Namespaces:
-        {}
-      Queue Size: 100
-      Value: false
-    - Arrow Length: 0.3
-      Axes Length: 0.1
-      Axes Radius: 0.01
-      Class: jsk_rviz_plugin/PoseArray
-      Color: 255; 25; 0
-      Enabled: true
-      Name: PoseArray
-      Shape: Axes
-      Topic: /cluster_indices_decomposer_voxels/centroid_pose_array
+      Image Topic: ""
+      Name: CameraInfo
+      Topic: /right_hand_camera/rgb/camera_info
       Unreliable: false
       Value: true
-    - Class: jsk_rviz_plugin/BoundingBoxArray
+      alpha: 0.5
+      color: 85; 255; 255
+      edge color: 85; 255; 255
+      far clip: 0.1
+      not show side polygons: true
+      show edges: true
+      show polygons: false
+      use image: false
+    - Class: jsk_rviz_plugin/BoundingBox
       Enabled: true
-      Name: BoundingBoxArray
-      Topic: /right_sib_cpi_decomposer/boxes
+      Name: BoundingBox
+      Topic: /bbox_array_to_bbox/output
       Unreliable: false
       Value: true
       alpha: 0.8
-      color: 25; 255; 0
-      coloring: Auto
+      color: 0; 0; 0
+      coloring: Flat color
       line width: 0.005
-      only edge: false
+      only edge: true
       show coords: false
-    - Alpha: 0.3
-      Class: rviz/RobotModel
-      Collision Enabled: false
+    - Class: rviz/Camera
       Enabled: true
-      Links:
-        All Links Enabled: true
-        Expand Joint Details: false
-        Expand Link Details: false
-        Expand Tree: false
-        Link Tree Style: Links in Alphabetic Order
-        kiva_pod_base:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kiva_pod_y_part0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kiva_pod_y_part1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kiva_pod_y_part2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kiva_pod_y_part3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kiva_pod_z_part0:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kiva_pod_z_part1:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kiva_pod_z_part2:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kiva_pod_z_part3:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        kiva_pod_z_part4:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-      Name: KivaModel
-      Robot Description: kiva_pod_description
-      TF Prefix: ""
-      Update Interval: 0
+      Image Rendering: background and overlay
+      Image Topic: /right_hand_camera/rgb/image_rect_color
+      Name: Camera
+      Overlay Alpha: 0.5
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
       Value: true
-      Visual Enabled: true
+      Visibility:
+        BoundingBox: false
+        BoundingBoxArray: true
+        CameraInfo: false
+        Grid: false
+        InteractiveMarkers: true
+        KivaModel: false
+        Label: false
+        LabelNames: true
+        LabelOctoMap: true
+        Passthrough: true
+        PoseArray: false
+        Raw: false
+        RightArm: false
+        RobotModel: true
+        Value: true
+      Zoom Factor: 1
   Enabled: true
   Global Options:
     Background Color: 193; 193; 193
@@ -564,30 +627,32 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 2.19539
+      Distance: 1.64976
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.392293
-        Y: -0.217497
-        Z: 0.352166
+        X: 0.375822
+        Y: -0.650685
+        Z: 0.657663
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.340398
+      Pitch: 0.410398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.7354
+      Yaw: 2.1254
     Saved: ~
 Window Geometry:
+  Camera:
+    collapsed: false
   Displays:
     collapsed: false
   Height: 1011
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000016a00000369fc0200000009fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006100fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000002800000369000000d600fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000600520061007700000001da000001120000000000000000000000010000010f000002c4fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730000000028000002c4000000ac00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000073d0000003efc0100000002fb0000000800540069006d006501000000000000073d000002f500fffffffb0000000800540069006d00650100000000000004500000000000000000000005cd0000036900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000016a00000369fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006100fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000002800000241000000d600fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000600520061007700000001da000001120000000000000000fb0000000c00430061006d006500720061010000026f000001220000001600ffffff000000010000010f000002c4fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730000000028000002c4000000ac00fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007950000003efc0100000002fb0000000800540069006d0065010000000000000795000002f500fffffffb0000000800540069006d00650100000000000004500000000000000000000006250000036900000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -596,6 +661,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 1853
-  X: 57
-  Y: 30
+  Width: 1941
+  X: 55
+  Y: 14

@@ -2,9 +2,9 @@
 
   <arg name="label_value" />
 
-  <arg name="MANAGER" value="/right_hand_camera/right_hand_camera_manager" />
+  <arg name="MANAGER" value="/right_hand_camera/right_hand_camera_nodelet_manager" />
   <arg name="INPUT_IMAGE" value="/right_hand_camera/rgb/image_rect_color" />
-  <arg name="INPUT_CLOUD" value="/right_hand_camera/depth_registered/points" />
+  <arg name="INPUT_CLOUD" default="/right_hand_camera/depth_registered/points" />
 
   <rosparam command="load" file="$(find hrp2_apc)/config/label_names.yaml" />
 

@@ -31,7 +31,7 @@
     <arg name="label_value" value="$(arg label_value)" />
   </include>
 
-  <arg name="MANAGER" value="right_hand_camera/right_hand_camera_manager" />
+  <arg name="MANAGER" value="right_hand_camera/right_hand_camera_nodelet_manager" />
   <group ns="right_hand_camera">
     <node name="right_hand_camera_manager"
           pkg="nodelet" type="nodelet" args="manager" />

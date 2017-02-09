@@ -18,7 +18,8 @@
     (send *ri* :calib-pressure-threshold :rarm)
     (send *ri* :recognize-bin-boxes)
     )
-  (ros::advertise (format nil "~a/output/moved" (ros::get-name)) std_msgs::Empty)
+  (ros::advertise (format nil "~a/output/start" (ros::get-name)) std_msgs::Empty)
+  (ros::advertise (format nil "~a/output/stop" (ros::get-name)) std_msgs::Empty)
   )
 
 
@@ -88,13 +89,13 @@
           (ros::ros-info-green "[PLACE SHELF:~a] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" label)
           (send *ri* :move-arm-body->bin :rarm :i)
           (send *ri* :wait-interpolation)
-          (send *ri* :ik->bin-entrance :rarm :i :offset (float-vector -100 0 50))
+          (send *ri* :ik->bin-entrance :rarm :i :offset (float-vector -100 0 30))
           (model2real)
-          (send *ri* :ik->bin-entrance :rarm :i :offset (float-vector 100 0 50))
+          (send *ri* :ik->bin-entrance :rarm :i :offset (float-vector 200 0 30))
           (model2real)
           (send *ri* :stop-grasp :rarm)
           (unix:sleep 3)
-          (send *ri* :ik->bin-entrance :rarm :i :offset (float-vector -150 0 50))
+          (send *ri* :ik->bin-entrance :rarm :i :offset (float-vector -150 0 30))
           (model2real)
           (ros::ros-info-green "[PLACE SHELF:~a] <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" label)
           ;; finalize loop
@@ -124,7 +125,7 @@
 ;; __main__
 (ros::roseus "pick_backward_object" :anonymous nil)
 (setup)
-(look-around-bin :bin :f)
+(look-around-bin :bin :f :times 6 :do-sleep nil)
 (setq target-label
       (floor (ros::get-param (format nil "~a/target_label" (ros::get-name)))))
 (ros::ros-info-green "Target object label is ~a." target-label)

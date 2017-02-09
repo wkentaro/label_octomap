@@ -29,11 +29,10 @@
     (format nil "/passthrough_viewpoint_~a/stop" id)
     (instance std_srvs::EmptyRequest :init))
   (unix:usleep (* 250 1000))
-  (unix:sleep 5)  ;; wait for processing
   )
 
 
-(defun look-around-bin (&key (bin :f))
+(defun look-around-bin (&key (bin :f) (times 3) (do-sleep t))
   "Look around bin with 6 view points"
   (send *ri* :ik->bin-entrance :rarm bin
         :gripper-angle 90
@@ -59,6 +58,7 @@
         )
   (model2real)
   (request-and-stop-pointcloud :id 0)
+  (when do-sleep (unix:sleep 5))
   ;; center
   (setq tc (send init-tc :copy-worldcoords))
   (send tc :rotate (/ pi 4) :y :world)
@@ -68,6 +68,7 @@
         )
   (model2real)
   (request-and-stop-pointcloud :id 1)
+  (when do-sleep (unix:sleep 5))
   ;; left
   (setq tc (send init-tc :copy-worldcoords))
   (send tc :rotate (/ pi 4) :y :world)
@@ -78,6 +79,43 @@
         )
   (model2real)
   (request-and-stop-pointcloud :id 2)
+  (when do-sleep (unix:sleep 5))
+
+  (when (not (equal times 6)) (return-from 'look-around-bin))
+
+  ;; pi/9 rotation in y axis
+  ;; left
+  (setq tc (send init-tc :copy-worldcoords))
+  (send tc :rotate (/ pi 9) :y :world)
+  (send tc :rotate (- (/ pi 12)) :z :world)
+  (send tc :translate (float-vector 30 100 10) :world)
+  (send *baxter* :rarm :inverse-kinematics tc
+        :rthre (/ pi 18)
+        )
+  (model2real)
+  (request-and-stop-pointcloud :id 3)
+  (when do-sleep (unix:sleep 5))
+  ;; center
+  (setq tc (send init-tc :copy-worldcoords))
+  (send tc :rotate (/ pi 9) :y :world)
+  (send tc :translate (float-vector 30 0 10) :world)
+  (send *baxter* :rarm :inverse-kinematics tc
+        :rthre (/ pi 18)
+        )
+  (model2real)
+  (request-and-stop-pointcloud :id 4)
+  (when do-sleep (unix:sleep 5))
+  ;; right
+  (setq tc (send init-tc :copy-worldcoords))
+  (send tc :rotate (/ pi 9) :y :world)
+  (send tc :rotate (/ pi 12) :z :world)
+  (send tc :translate (float-vector 30 -100 10) :world)
+  (send *baxter* :rarm :inverse-kinematics tc
+        :rthre (/ pi 18)
+        )
+  (model2real)
+  (request-and-stop-pointcloud :id 5)
+  (when do-sleep (unix:sleep 5))
   )
 
 
