@@ -78,7 +78,7 @@
       frame_id: base
       resolution: 0.01
       latch: false
-      publish_periodically: true
+      publish_rate: 2
       max_range: 1.0
     </rosparam>
   </node>
