@@ -23,7 +23,7 @@
     (format nil "/passthrough_viewpoint_~a/request" id)
     (instance std_srvs::EmptyRequest :init))
   ; (unix:usleep (* 1000 1000))
-  (unix:sleep 2)
+  (unix:sleep 1)
   (ros::service-call "/passthrough_cloud/stop" (instance std_srvs::EmptyRequest :init))
   (ros::service-call
     (format nil "/passthrough_viewpoint_~a/stop" id)
