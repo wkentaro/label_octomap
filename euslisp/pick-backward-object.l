@@ -12,6 +12,7 @@
   (ros::advertise (format nil "~a/output/stop" (ros::get-name)) std_msgs::Empty)
   (unless (boundp '*ri*)
     (jsk_2016_01_baxter_apc::baxter-init)
+    (send (send *baxter* :rarm :end-coords) :translate #f(10 0 0))
     (send *ri* :gripper-servo-on)
     (baxter-rarm-only-pose)
     (send *baxter* :fold-pose-back :rarm)
