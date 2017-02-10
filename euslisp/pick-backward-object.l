@@ -68,8 +68,11 @@
     (setq target-label-coords (gethash target-label coords-table))
     (send coords-table :delete target-label)
 
+    (setq non-target-coords (send coords-table :list))
+    (sort non-target-coords #'<= #'(lambda (x) (elt (send (cdr x) :worldpos) 0)))
+
     ;; remove collision objects
-    (dolist (kv (send coords-table :list))
+    (dolist (kv non-target-coords)
       (let ((label (car kv))
             (coords (cdr kv)))
         ;; other object is located in the front of target object
