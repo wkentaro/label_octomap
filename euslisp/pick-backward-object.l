@@ -98,7 +98,7 @@
           (send *ri* :ik->bin-entrance :rarm :i :offset (float-vector 200 0 20))
           (model2real)
           (send *ri* :stop-grasp :rarm)
-          (send *ri* :spin-off-by-wrist :rarm :times 5)
+          (send *ri* :spin-off-by-wrist :rarm :times 10)
           (send *ri* :wait-interpolation)
           (send *ri* :ik->bin-entrance :rarm :i :offset (float-vector -150 0 20))
           (model2real)
