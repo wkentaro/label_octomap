@@ -110,7 +110,7 @@
     <rosparam>
       approximate_sync: false
       queue_size: 100
-      min_size: 10
+      min_size: 30
     </rosparam>
   </node>
 
@@ -138,7 +138,7 @@
         args="load jsk_pcl/EuclideanClustering $(arg MANAGER)">
     <remap from="~input" to="extract_indices/output" />
     <rosparam>
-      min_size: 10
+      min_size: 30
       max_size: 10000
       tolerance: 0.04
     </rosparam>
