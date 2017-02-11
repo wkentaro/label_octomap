@@ -101,7 +101,7 @@ Visualization Manager:
       Position Transformer: XYZ
       Queue Size: 10
       Selectable: true
-      Size (Pixels): 3
+      Size (Pixels): 1
       Size (m): 0.01
       Style: Points
       Topic: /right_hand_camera/depth_registered/points
@@ -140,12 +140,16 @@ Visualization Manager:
       Name: LabelOctoMap
       Namespaces:
         0: true
-        11: true
+        10: true
         14: true
-        22: true
-        27: true
+        18: true
+        19: true
+        2: true
+        24: true
+        30: true
+        31: true
+        32: true
         34: true
-        39: true
       Queue Size: 100
       Value: true
     - Class: jsk_rviz_plugin/OverlayImage
@@ -577,7 +581,7 @@ Visualization Manager:
       show coords: false
     - Class: rviz/Camera
       Enabled: true
-      Image Rendering: background and overlay
+      Image Rendering: background
       Image Topic: /right_hand_camera/rgb/image_rect_color
       Name: Camera
       Overlay Alpha: 0.5
@@ -587,7 +591,7 @@ Visualization Manager:
       Value: true
       Visibility:
         BoundingBox: false
-        BoundingBoxArray: true
+        BoundingBoxArray: false
         CameraInfo: false
         Grid: false
         InteractiveMarkers: true
@@ -595,7 +599,7 @@ Visualization Manager:
         Label: false
         LabelNames: true
         LabelOctoMap: true
-        Passthrough: true
+        Passthrough: false
         PoseArray: false
         Raw: false
         RightArm: false
@@ -627,22 +631,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.64976
+      Distance: 0.770124
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.375822
-        Y: -0.650685
-        Z: 0.657663
+        X: 0.676554
+        Y: -0.619033
+        Z: 0.943298
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.410398
+      Pitch: 0.695398
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.1254
+      Yaw: 3.3004
     Saved: ~
 Window Geometry:
   Camera:
