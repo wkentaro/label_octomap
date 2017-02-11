@@ -27,11 +27,13 @@
           args="/tf
                 /robot/joint_states
 
+                /pick_backward_object/output/start
+                /pick_backward_object/output/stop
+
                 /right_hand_camera/rgb/camera_info
                 /right_hand_camera/rgb/image_raw
                 /right_hand_camera/depth_registered/camera_info
                 /right_hand_camera/depth_registered/image_raw
-                /passthrough_cloud/output
 
                 /bbox_array_to_bbox/output
                 /label_image_decomposer/output/label_viz
