@@ -3,6 +3,7 @@
   <arg name="label_value" />
   <arg name="launch_main" default="true" />
   <arg name="rviz" default="true" />
+  <arg name="rosbag" default="true" />
 
   <node name="publish_bin_bboxes"
         pkg="jsk_apc2016_common" type="publish_bin_bbox.py"
@@ -22,7 +23,8 @@
         target_label: $(arg label_value)
       </rosparam>
     </node>
-    <node name="rosbag_record"
+    <node if="$(arg rosbag)"
+          name="rosbag_record"
           pkg="rosbag" type="record"
           args="/tf
                 /robot/joint_states
