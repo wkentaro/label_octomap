@@ -18,6 +18,7 @@
 
 
 (defun request-and-stop-pointcloud (&key id)
+  (unix::usleep (* 250 1000))
   (let ((req (instance jsk_topic_tools::PassthroughDurationRequest :init))
         (duration 2))
     (send req :duration (ros::time duration))
