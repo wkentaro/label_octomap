@@ -1,6 +1,7 @@
 ;; vim: set ft=lisp:
 
 (ros::load-ros-manifest "label_octomap")
+(ros::load-ros-manifest "jsk_topic_tools")
 
 
 (require "package://jsk_2016_01_baxter_apc/euslisp/jsk_2016_01_baxter_apc/util.l")
@@ -17,9 +18,12 @@
 
 
 (defun request-and-stop-pointcloud (&key id)
-  (ros::service-call "/passthrough_cloud/request" (instance std_srvs::EmptyRequest :init))
-  (unix:sleep 2)
-  (ros::service-call "/passthrough_cloud/stop" (instance std_srvs::EmptyRequest :init))
+  (let ((req (instance jsk_topic_tools::PassthroughDurationRequest :init))
+        (duration 2))
+    (send req :duration (ros::time duration))
+    (ros::service-call "/passthrough_cloud/request_duration" req)
+    (unix:sleep duration)
+    )
   )
 
 
