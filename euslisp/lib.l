@@ -18,7 +18,7 @@
 
 (defun request-and-stop-pointcloud (&key id)
   (ros::service-call "/passthrough_cloud/request" (instance std_srvs::EmptyRequest :init))
-  (unix:sleep 1)
+  (unix:sleep 2)
   (ros::service-call "/passthrough_cloud/stop" (instance std_srvs::EmptyRequest :init))
   )
 
