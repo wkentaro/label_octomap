@@ -8,8 +8,8 @@
         pkg="jsk_apc2016_common" type="publish_bin_bbox.py"
         output="screen">
     <remap from="~boxes" to="~output" />
-    <rosparam file="$(find hrp2_apc)/config/bin_upper_shelf.yaml" command="load" ns="upper_shelf"/>
-    <rosparam file="$(find hrp2_apc)/config/bin_lower_shelf.yaml" command="load" ns="lower_shelf"/>
+    <rosparam file="$(find jsk_apc2016_common)/config/bin_upper_shelf.yaml" command="load" ns="upper_shelf"/>
+    <rosparam file="$(find jsk_apc2016_common)/config/bin_lower_shelf.yaml" command="load" ns="lower_shelf"/>
   </node>
 
   <!-- main -->
@@ -56,10 +56,20 @@
   <arg name="INPUT_CLOUD" value="/right_hand_camera/depth_registered/points" />
   <arg name="INPUT_DEPTH_INFO" value="/right_hand_camera/depth_registered/camera_info" />
 
+  <node name="rearrange_bbox"
+        pkg="nodelet" type="nodelet"
+        args="load jsk_pcl/RearrangeBoundingBox $(arg MANAGER)">
+    <remap from="~input" to="publish_bin_bboxes/output" />
+    <rosparam>
+      scale_x: 1.3
+      scale_y: 1.5
+      scale_z: 1.5
+    </rosparam>
+  </node>
   <node name="bbox_array_to_bbox"
         pkg="nodelet" type="nodelet"
         args="load jsk_pcl_utils/BoundingBoxArrayToBoundingBox $(arg MANAGER)">
-    <remap from="~input" to="publish_bin_bboxes/output" />
+    <remap from="~input" to="rearrange_bbox/output" />
     <rosparam>
       index: 5  # bin F
     </rosparam>
