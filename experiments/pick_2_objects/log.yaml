@@ -1,0 +1,510 @@
+# 2 Objects
+
+# <target_id>:
+#   all_ids:
+#   success:
+#   find_target:
+#   remove_non_target:
+#   grasp:
+#   carry:
+
+- target_id: 27
+  all_ids:
+  - 35
+  - 27
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 4
+  all_ids:
+  - 24
+  - 4
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 36
+  all_ids:
+  - 34
+  - 36
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carray: false
+
+- target_id: 28
+  all_ids:
+  - 28
+  - 7
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: null
+
+- target_id: 2
+  all_ids:
+  - 10
+  - 2
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 14
+  all_ids:
+  - 39
+  - 14
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 24
+  all_ids:
+  - 6
+  - 24
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 6
+  all_ids:
+  - 35
+  - 6
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+# -- new movie 2017-02-12 0:15
+
+- target_id: 38
+  all_ids:
+  - 38
+  - 10
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: null
+
+- target_id: 7
+  all_ids:
+  - 10
+  - 7
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 28
+  all_ids:
+  - 10
+  - 28
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: null
+
+- target_id: 36
+  all_ids:
+  - 6
+  - 36
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 39
+  all_ids:
+  - 27
+  - 39
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 34
+  all_ids:
+  - 38
+  - 34
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: false
+
+- target_id: 2
+  all_ids:
+  - 4
+  - 2
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 24
+  all_ids:
+    - 10
+    - 24
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: false
+
+- target_id: 7
+  all_ids:
+  - 14
+  - 7
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 7
+  all_ids:
+  - 2
+  - 7
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: null
+
+- target_id: 35
+  all_ids:
+  - 2
+  - 35
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 27
+  all_ids:
+  - 39
+  - 27
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: false
+
+- target_id: 34
+  all_ids:
+  - 4
+  - 34
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 39
+  all_ids:
+  - 24
+  - 39
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 24
+  all_ids:
+  - 4
+  - 24
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 28
+  all_ids:
+  - 35
+  - 28
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 22
+  all_ids:
+  - 14
+  - 22
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 24
+  all_ids:
+  - 34
+  - 24
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 27
+  all_ids:
+  - 36
+  - 27
+  find_target: true
+  find_non_target: false
+  remove_non_target: null
+  grasp: null
+  carry: null
+
+- target_id: 6
+  all_ids:
+  - 35
+  - 6
+  find_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 35
+  all_ids:
+  - 7
+  - 35
+  find_target: true
+  find_non_target: true
+  remove_non_target: false
+  grasp: null
+  carry: null
+
+- target_id: 38
+  all_ids:
+  - 28
+  - 38
+  find_target: true
+  find_non_target: true
+  remove_non_target: false
+  grasp: null
+  carry: null
+
+- target_id: 4
+  all_ids:
+  - 28
+  - 4
+  find_target: true
+  find_non_target: true
+  remove_non_target: false
+  grasp: null
+  carry: null
+
+- target_id: 38
+  all_ids:
+  - 34
+  - 38
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 38
+  all_ids:
+  - 4
+  - 38
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 7
+  all_ids:
+  - 36
+  - 7
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: null
+
+- target_id: 7
+  all_ids:
+  - 24
+  - 7
+  find_target: false
+  find_non_target: null
+  remove_non_target: null
+  grasp: null
+  carry: null
+
+- target_id: 22
+  all_ids:
+  - 2
+  - 22
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: null
+
+- target_id: 24
+  all_ids:
+  - 36
+  - 24
+  find_target: true
+  find_non_target: true
+  remove_non_target: false
+  grasp: null
+  carry: null
+
+- target_id: 10
+  all_ids:
+  - 4
+  - 10
+  find_target: true
+  find_non_target: false
+  remove_non_target: null
+  grasp: null
+  carry: null
+
+- target_id: 24
+  all_ids:
+  - 28
+  - 24
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: null
+
+- target_id: 10
+  all_ids:
+  - 7
+  - 10
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: false
+
+- target_id: 14
+  all_ids:
+  - 34
+  - 14
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 7
+  all_ids:
+  - 4
+  - 7
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: null
+
+- target_id: 22
+  all_ids:
+  - 6
+  - 22
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: null
+
+- target_id: 35
+  all_ids:
+  - 24
+  - 35
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 35
+  all_ids:
+  - 28
+  - 35
+  find_target: false
+  find_non_target: null
+  remove_non_target: null
+  grasp: null
+  carry: null
+
+- target_id: 14
+  all_ids:
+  - 35
+  - 14
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 7
+  all_ids:
+  - 27
+  - 7
+  find_target: false
+  find_non_target: null
+  remove_non_target: null
+  grasp: null
+  carry: null
+
+- target_id: 4
+  all_ids:
+  - 28
+  - 4
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 34
+  all_ids:
+  - 14
+  - 34
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 24
+  all_ids:
+  - 36
+  - 24
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
