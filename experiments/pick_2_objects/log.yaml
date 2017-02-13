@@ -36,7 +36,7 @@
   find_non_target: true
   remove_non_target: true
   grasp: true
-  carry: false
+  carry: true
 
 - target_id: 28
   all_ids:
@@ -44,8 +44,8 @@
   - 7
   find_target: true
   find_non_target: true
-  remove_non_target: true
-  grasp: false
+  remove_non_target: false
+  grasp: null
   carry: null
 
 - target_id: 2
@@ -94,10 +94,10 @@
   all_ids:
   - 38
   - 10
-  find_target: true
-  find_non_target: true
-  remove_non_target: true
-  grasp: false
+  find_target: false
+  find_non_target: null
+  remove_non_target: null
+  grasp: null
   carry: null
 
 - target_id: 7
@@ -140,16 +140,6 @@
   grasp: true
   carry: true
 
-- target_id: 34
-  all_ids:
-  - 38
-  - 34
-  find_target: true
-  find_non_target: true
-  remove_non_target: true
-  grasp: true
-  carry: false
-
 - target_id: 2
   all_ids:
   - 4
@@ -168,7 +158,7 @@
   find_non_target: true
   remove_non_target: true
   grasp: true
-  carry: false
+  carry: true
 
 - target_id: 7
   all_ids:
@@ -504,6 +494,76 @@
   all_ids:
   - 36
   - 24
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 6
+  all_ids:
+  - 38
+  - 6
+  find_target: false
+  find_non_target: null
+  remove_non_target: null
+  grasp: null
+  carry: null
+
+- target_id: 39
+  all_ids:
+  - 22
+  - 39
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 2
+  all_ids:
+  - 27
+  - 2
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 39
+  all_ids:
+  - 38
+  - 39
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 39
+  all_ids:
+  - 36
+  - 39
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 22
+  all_ids:
+  - 14
+  - 22
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 38
+  all_ids:
+  - 6
+  - 38
   find_target: true
   find_non_target: true
   remove_non_target: true

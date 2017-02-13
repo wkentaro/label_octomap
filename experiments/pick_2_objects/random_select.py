@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from collections import OrderedDict
+from collections import Counter
 import time
 
 import numpy as np
@@ -26,13 +27,26 @@ OBJECTS = [
 ]
 
 
-np.random.seed(int(time.time()))
-chosen = np.random.choice(OBJECTS, 2).tolist()
-target_id = int(chosen[-1])
+data = yaml.load(open('log.yaml'))
+all_ids = []
+for datum in data:
+    all_ids += datum['all_ids']
+count = Counter(all_ids)
 
-import yaml
+for obj_id in OBJECTS:
+    if obj_id not in count:
+        count[obj_id] = 0
+    # print('%d: %d' % (obj_id, count[obj_id]))
 
-from collections import OrderedDict
+
+min_count = sorted(count.items(), key=lambda x: x[1])[1][1]
+candidates = []
+for obj_id, cnt in count.items():
+    if cnt <= min_count:
+        candidates.append(obj_id)
+chosen = np.random.choice(candidates, 2, replace=False).tolist()
+target_id = chosen[-1]
+
 
 def represent_ordereddict(dumper, data):
     value = []
@@ -42,10 +56,11 @@ def represent_ordereddict(dumper, data):
         value.append((node_key, node_value))
     return yaml.nodes.MappingNode(u'tag:yaml.org,2002:map', value)
 
+
 yaml.add_representer(OrderedDict, represent_ordereddict)
 data = [OrderedDict([
     ('target_id', target_id),
-    ('all_id', chosen),
+    ('all_ids', chosen),
     ('find_target', None),
     ('find_non_target', None),
     ('remove_non_target', None),
