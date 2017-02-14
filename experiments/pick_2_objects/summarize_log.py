@@ -18,19 +18,31 @@ print('# Result in {} experiments'.format(len(df)))
 
 recog = ['find_target', 'find_non_target']
 df_recog = df[recog]
-rate_recog = 100. * df_recog.all(axis=1).sum() / len(df_recog)
-print(' recog success rate: {:.1f} %'.format(rate_recog))
+a = df_recog.all(axis=1).sum()
+b = len(df_recog)
+rate_recog = 1. * a / b
+print(' recog success rate      : {0:.1f} % ({1}/{2})'.format(100 * rate_recog, a, b))
 
 remove = ['remove_non_target']
 df_remove = df[remove].dropna()
-rate_remove = 100. * df_remove.values.sum() / len(df_remove)
-df_remove_acm = df[recog + remove]
-rate_remove_acm = 100. * df_remove_acm.all(axis=1).sum() / len(df_remove_acm)
-print('remove success rate: {:.1f} % ({:.1f} %)'.format(rate_remove, rate_remove_acm))
+a = df_remove.values.sum()
+b = len(df_remove)
+rate_remove = 1. * a / b
+print('remove success rate      : {0:.1f} % ({1}/{2})'.format(100 * rate_remove, a, b))
+df_remove_total = df[recog + remove]
+a = df_remove_total.all(axis=1).sum()
+b = len(df_remove_total)
+rate_remove_total = 1. * a / b
+print('remove success rate total: {0:.1f} % ({1}/{2})'.format(100 * rate_remove_total, a, b))
 
 pick = ['grasp', 'carry']
 df_pick = df[pick].dropna(how='all')
-rate_pick = 100. * df_pick.all(axis=1).sum() / len(df_pick)
-df_pick_acm = df[recog + remove + pick]
-rate_pick_acm = 100. * df_pick_acm.all(axis=1).sum() / len(df_pick_acm)
-print('  pick success rate: {:.1f} % ({:.1f} %)'.format(rate_pick, rate_pick_acm))
+a = df_pick.all(axis=1).sum()
+b = len(df_pick)
+rate_pick = 1. * a / b
+print('  pick success rate      : {0:.1f} % ({1}/{2})'.format(100 * rate_pick, a, b))
+df_pick_total = df[recog + remove + pick]
+a = df_pick_total.all(axis=1).sum()
+b = len(df_pick_total)
+rate_pick_total = 1. * a / b
+print('  pick success rate total: {0:.1f} % ({1}/{2})'.format(100 * rate_pick_total, a, b))
