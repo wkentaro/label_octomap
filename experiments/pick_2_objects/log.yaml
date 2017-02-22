@@ -569,3 +569,53 @@
   remove_non_target: true
   grasp: true
   carry: true
+
+- target_id: 22
+  all_ids:
+  - 2
+  - 22
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: false
+  carry: false
+
+- target_id: 22
+  all_ids:
+  - 34
+  - 22
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 38
+  all_ids:
+  - 27
+  - 38
+  find_target: true
+  find_non_target: true
+  remove_non_target: true
+  grasp: true
+  carry: true
+
+- target_id: 14
+  all_ids:
+  - 10
+  - 14
+  find_target: true
+  find_non_target: false
+  remove_non_target: null
+  grasp: null
+  carry: null
+
+- target_id: 6
+  all_ids:
+  - 36
+  - 6
+  find_target: true
+  find_non_target: true
+  remove_non_target: false
+  grasp: null
+  carry: null
