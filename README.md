@@ -2,14 +2,18 @@
 
 Probabilistic 3D Multilabel Real-time Mapping for Multi-object Manipulation
 
+<a href="https://www.youtube.com/watch?v=T-vtVQT9sgc&t=7s">
+  <img src="http://i3.ytimg.com/vi/T-vtVQT9sgc/maxresdefault.jpg" width="50%" />
+</a>
+
 
 ## Citation
 
 ```
-@INPROCEEDINGS{wada2017probabilistic,
+@InProceedings{Wada:etal:IROS2017,
   author={Kentaro Wada and Kei Okada and Masayuki Inaba},
   title={Probabilistic 3D Multilabel Real-time Mapping for Multi-object Manipulation},
-  booktitle={Proceedings of the International Conference on Robotics and Systems},
+  booktitle={Proceedings of the IEEE-RAS International Conference on Robotics and Systems (IROS)},
   year={2017},
 }
 ```
