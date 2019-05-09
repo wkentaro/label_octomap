@@ -2,9 +2,14 @@
 
 Probabilistic 3D Multilabel Real-time Mapping for Multi-object Manipulation
 
-<a href="https://www.youtube.com/watch?v=T-vtVQT9sgc&t=7s">
+<a href="https://www.youtube.com/watch?v=T-vtVQT9sgc">
   <img src="http://i3.ytimg.com/vi/T-vtVQT9sgc/maxresdefault.jpg" width="50%" />
 </a>
+<p>
+  <a href="https://www.youtube.com/watch?v=T-vtVQT9sgc">
+    <i>https://www.youtube.com/watch?v=T-vtVQT9sgc</i>
+  </a>
+</p>
 
 
 ## Citation
